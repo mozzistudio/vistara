@@ -5,7 +5,7 @@ function getBase() {
   const baseId = process.env.AIRTABLE_BASE_ID
 
   if (!apiKey || !baseId) {
-    // Return a proxy that throws helpful errors at runtime but doesn't break build
+    // Return a proxy that returns safe no-ops at build time when env vars are missing
     const handler: ProxyHandler<any> = {
       get: () => {
         return (..._args: any[]) => {
@@ -21,10 +21,17 @@ function getBase() {
   return airtable.base(baseId)
 }
 
+// Track whether the cached base was created with or without env vars
 let _base: ReturnType<typeof getBase> | null = null
+let _baseHadEnv = false
 
 function base() {
-  if (!_base) _base = getBase()
+  const hasEnv = !!(process.env.AIRTABLE_API_KEY && process.env.AIRTABLE_BASE_ID)
+  // Re-create if: no base yet, OR base was a proxy but now env vars are available
+  if (!_base || (!_baseHadEnv && hasEnv)) {
+    _base = getBase()
+    _baseHadEnv = hasEnv
+  }
   return _base
 }
 

@@ -32,7 +32,7 @@ export interface RepLeaderboardEntry {
 export async function getVisitsByRep(dateFrom?: string, dateTo?: string): Promise<VisitsByRep[]> {
   const key = `analytics:visitsByRep:${dateFrom}:${dateTo}`
   return cachedQuery(key, async () => {
-    const conditions = [`{Status} = 'Completed'`]
+    const conditions = [`{Status} = 'completed'`]
     if (dateFrom) conditions.push(`IS_AFTER({Actual Date}, '${dateFrom}')`)
     if (dateTo) conditions.push(`IS_BEFORE({Actual Date}, '${dateTo}')`)
 
@@ -55,7 +55,7 @@ export async function getVisitsByRep(dateFrom?: string, dateTo?: string): Promis
 export async function getDailyTrend(dateFrom?: string, dateTo?: string): Promise<DailyTrend[]> {
   const key = `analytics:dailyTrend:${dateFrom}:${dateTo}`
   return cachedQuery(key, async () => {
-    const conditions = [`{Status} = 'Completed'`]
+    const conditions = [`{Status} = 'completed'`]
     if (dateFrom) conditions.push(`IS_AFTER({Actual Date}, '${dateFrom}')`)
     if (dateTo) conditions.push(`IS_BEFORE({Actual Date}, '${dateTo}')`)
 
@@ -78,7 +78,7 @@ export async function getDailyTrend(dateFrom?: string, dateTo?: string): Promise
 export async function getRatingDistribution(dateFrom?: string, dateTo?: string): Promise<RatingDistribution[]> {
   const key = `analytics:ratings:${dateFrom}:${dateTo}`
   return cachedQuery(key, async () => {
-    const conditions = [`{Status} = 'Completed'`]
+    const conditions = [`{Status} = 'completed'`]
     if (dateFrom) conditions.push(`IS_AFTER({Actual Date}, '${dateFrom}')`)
     if (dateTo) conditions.push(`IS_BEFORE({Actual Date}, '${dateTo}')`)
 
@@ -101,7 +101,7 @@ export async function getRatingDistribution(dateFrom?: string, dateTo?: string):
 export async function getProductsDiscussed(dateFrom?: string, dateTo?: string): Promise<ProductDiscussed[]> {
   const key = `analytics:products:${dateFrom}:${dateTo}`
   return cachedQuery(key, async () => {
-    const conditions = [`{Status} = 'Completed'`]
+    const conditions = [`{Status} = 'completed'`]
     if (dateFrom) conditions.push(`IS_AFTER({Actual Date}, '${dateFrom}')`)
     if (dateTo) conditions.push(`IS_BEFORE({Actual Date}, '${dateTo}')`)
 
@@ -111,8 +111,9 @@ export async function getProductsDiscussed(dateFrom?: string, dateTo?: string): 
 
     const grouped: Record<string, number> = {}
     records.forEach((r: any) => {
-      const products = r.get('Products Discussed') as string[] || []
-      products.forEach(p => {
+      const raw = r.get('Products Discussed') as string || ''
+      const products = raw.split('\n').map((p: string) => p.trim()).filter(Boolean)
+      products.forEach((p: string) => {
         grouped[p] = (grouped[p] || 0) + 1
       })
     })
@@ -126,7 +127,7 @@ export async function getProductsDiscussed(dateFrom?: string, dateTo?: string): 
 export async function getRepLeaderboard(dateFrom?: string, dateTo?: string): Promise<RepLeaderboardEntry[]> {
   const key = `analytics:leaderboard:${dateFrom}:${dateTo}`
   return cachedQuery(key, async () => {
-    const conditions = [`{Status} = 'Completed'`]
+    const conditions = [`{Status} = 'completed'`]
     if (dateFrom) conditions.push(`IS_AFTER({Actual Date}, '${dateFrom}')`)
     if (dateTo) conditions.push(`IS_BEFORE({Actual Date}, '${dateTo}')`)
 
