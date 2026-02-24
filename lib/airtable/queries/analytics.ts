@@ -41,7 +41,7 @@ export async function getVisitsByRep(dateFrom?: string, dateTo?: string): Promis
       .all()
 
     const grouped: Record<string, number> = {}
-    records.forEach(r => {
+    records.forEach((r: any) => {
       const rep = r.get('Rep Name') as string || 'Unknown'
       grouped[rep] = (grouped[rep] || 0) + 1
     })
@@ -64,7 +64,7 @@ export async function getDailyTrend(dateFrom?: string, dateTo?: string): Promise
       .all()
 
     const grouped: Record<string, number> = {}
-    records.forEach(r => {
+    records.forEach((r: any) => {
       const date = r.get('Actual Date') as string || ''
       if (date) grouped[date] = (grouped[date] || 0) + 1
     })
@@ -87,7 +87,7 @@ export async function getRatingDistribution(dateFrom?: string, dateTo?: string):
       .all()
 
     const grouped: Record<number, number> = {}
-    records.forEach(r => {
+    records.forEach((r: any) => {
       const rating = r.get('Rating') as number
       if (rating) grouped[rating] = (grouped[rating] || 0) + 1
     })
@@ -110,7 +110,7 @@ export async function getProductsDiscussed(dateFrom?: string, dateTo?: string): 
       .all()
 
     const grouped: Record<string, number> = {}
-    records.forEach(r => {
+    records.forEach((r: any) => {
       const products = r.get('Products Discussed') as string[] || []
       products.forEach(p => {
         grouped[p] = (grouped[p] || 0) + 1
@@ -152,7 +152,7 @@ export async function getRepLeaderboard(dateFrom?: string, dateTo?: string): Pro
       routeCount: number
     }> = {}
 
-    visitRecords.forEach(r => {
+    visitRecords.forEach((r: any) => {
       const rep = r.get('Rep Name') as string || 'Unknown'
       if (!repData[rep]) repData[rep] = { visits: 0, totalRating: 0, ratedVisits: 0, totalScore: 0, routeCount: 0 }
       repData[rep].visits++
@@ -163,7 +163,7 @@ export async function getRepLeaderboard(dateFrom?: string, dateTo?: string): Pro
       }
     })
 
-    routeRecords.forEach(r => {
+    routeRecords.forEach((r: any) => {
       const rep = r.get('Rep Name') as string || 'Unknown'
       if (!repData[rep]) repData[rep] = { visits: 0, totalRating: 0, ratedVisits: 0, totalScore: 0, routeCount: 0 }
       const score = r.get('Optimization Score') as number || 0
