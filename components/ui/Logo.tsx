@@ -8,7 +8,7 @@ interface LogoProps {
 }
 
 const sizeMap: Record<LogoSize, { width: number; height: number }> = {
-  sm: { width: 120, height: 30 },
+  sm: { width: 130, height: 32 },
   md: { width: 180, height: 45 },
   lg: { width: 240, height: 60 },
 };
@@ -73,12 +73,12 @@ function Logo({ size = 'md', iconOnly = false, className = '' }: LogoProps) {
       <line x1="32" y1="44" x2="40" y2="33" stroke="#8B5CF6" strokeWidth="1.5" opacity="0.6" />
       <text
         x="62"
-        y="38"
+        y="39"
         fontFamily="Syne"
-        fontWeight="700"
+        fontWeight="800"
         fontSize="26"
         fill="#F8FAFC"
-        letterSpacing="-1"
+        letterSpacing="-0.5"
       >
         Vistara
       </text>

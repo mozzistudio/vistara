@@ -6,32 +6,32 @@ import { Logo } from '@/components/ui/Logo'
 
 const demoAccounts = [
   {
-    icon: '\u{1FA7A}',
+    icon: '🩺',
     name: 'Carlos Mendoza',
-    role: 'Rep',
-    email: 'carlos@vistara.ai',
-    password: 'demo1234',
+    role: 'Rep Panamá Centro',
+    email: 'carlos.rep@vistara-demo.com',
+    password: 'demo2026',
   },
   {
-    icon: '\u{1F4CA}',
-    name: 'Mar\u00eda Garc\u00eda',
-    role: 'Director',
-    email: 'maria@vistara.ai',
-    password: 'demo1234',
+    icon: '📊',
+    name: 'Maria Silva',
+    role: 'Manager Panamá Metro',
+    email: 'maria.manager@vistara-demo.com',
+    password: 'demo2026',
   },
   {
-    icon: '\u{1F489}',
-    name: 'Ana Rodr\u00edguez',
-    role: 'Rep',
-    email: 'ana@vistara.ai',
-    password: 'demo1234',
+    icon: '🏢',
+    name: 'Jorge Fernández',
+    role: 'Director Nacional',
+    email: 'jorge.director@vistara-demo.com',
+    password: 'demo2026',
   },
   {
-    icon: '\u{1F4CB}',
-    name: 'Luis Torres',
-    role: 'Rep',
-    email: 'luis@vistara.ai',
-    password: 'demo1234',
+    icon: '⚙️',
+    name: 'Admin',
+    role: 'Administrador',
+    email: 'admin@vistara-demo.com',
+    password: 'demo2026',
   },
 ]
 
@@ -54,12 +54,12 @@ export default function LoginPage() {
       })
 
       if (result?.error) {
-        setError('Credenciales inv\u00e1lidas. Intenta de nuevo.')
+        setError('Credenciales inválidas. Intenta de nuevo.')
       } else if (result?.ok) {
         window.location.href = '/app/rep'
       }
     } catch {
-      setError('Ocurri\u00f3 un error. Intenta de nuevo.')
+      setError('Ocurrió un error. Intenta de nuevo.')
     } finally {
       setLoading(false)
     }
@@ -72,7 +72,16 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0E17] flex items-center justify-center px-4 py-12">
+    <div
+      className="min-h-screen flex items-center justify-center px-4 py-12"
+      style={{
+        background: `
+          radial-gradient(ellipse 60% 40% at 30% 20%, rgba(34,211,238,0.06) 0%, transparent 60%),
+          radial-gradient(ellipse 50% 40% at 70% 80%, rgba(139,92,246,0.06) 0%, transparent 60%),
+          #0A0E17
+        `,
+      }}
+    >
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="flex justify-center mb-8">
@@ -80,11 +89,26 @@ export default function LoginPage() {
         </div>
 
         {/* Card */}
-        <div className="bg-[#111827]/70 backdrop-blur-xl border border-white/[0.06] rounded-2xl p-8">
-          <h1 className="text-2xl font-bold text-white text-center mb-2">
+        <div
+          className="p-8"
+          style={{
+            background: 'rgba(17,24,39,0.7)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255,255,255,0.06)',
+            borderRadius: '20px',
+          }}
+        >
+          <h1
+            className="text-center mb-2"
+            style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, fontSize: '1.5rem', color: '#F8FAFC' }}
+          >
             Bienvenido de vuelta
           </h1>
-          <p className="text-sm text-[#94A3B8] text-center mb-8">
+          <p
+            className="text-center mb-8"
+            style={{ fontFamily: 'var(--font-ibm)', fontWeight: 300, fontSize: '14px', color: '#94A3B8' }}
+          >
             Ingresa tus credenciales para continuar
           </p>
 
@@ -100,9 +124,10 @@ export default function LoginPage() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-[#94A3B8] mb-1.5"
+                className="block mb-1.5"
+                style={{ fontFamily: 'var(--font-ibm)', fontWeight: 400, fontSize: '13px', color: '#94A3B8' }}
               >
-                Correo electr\u00f3nico
+                Correo electrónico
               </label>
               <input
                 id="email"
@@ -111,32 +136,68 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="tu@email.com"
                 required
-                className="w-full rounded-lg border border-white/[0.06] bg-[#0F1629] px-4 py-2.5 text-sm text-white placeholder-[#475569] outline-none transition-colors focus:border-[#22D3EE]/50 focus:ring-1 focus:ring-[#22D3EE]/30"
+                className="w-full px-4 py-2.5 text-sm text-white outline-none transition-colors"
+                style={{
+                  borderRadius: '10px',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  background: '#0F1629',
+                  fontFamily: 'var(--font-ibm)',
+                }}
+                onFocus={e => {
+                  e.currentTarget.style.borderColor = 'rgba(34,211,238,0.4)'
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(34,211,238,0.1)'
+                }}
+                onBlur={e => {
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'
+                  e.currentTarget.style.boxShadow = 'none'
+                }}
               />
             </div>
 
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-[#94A3B8] mb-1.5"
+                className="block mb-1.5"
+                style={{ fontFamily: 'var(--font-ibm)', fontWeight: 400, fontSize: '13px', color: '#94A3B8' }}
               >
-                Contrase\u00f1a
+                Contraseña
               </label>
               <input
                 id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"
+                placeholder="••••••••"
                 required
-                className="w-full rounded-lg border border-white/[0.06] bg-[#0F1629] px-4 py-2.5 text-sm text-white placeholder-[#475569] outline-none transition-colors focus:border-[#22D3EE]/50 focus:ring-1 focus:ring-[#22D3EE]/30"
+                className="w-full px-4 py-2.5 text-sm text-white outline-none transition-colors"
+                style={{
+                  borderRadius: '10px',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  background: '#0F1629',
+                  fontFamily: 'var(--font-ibm)',
+                }}
+                onFocus={e => {
+                  e.currentTarget.style.borderColor = 'rgba(34,211,238,0.4)'
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(34,211,238,0.1)'
+                }}
+                onBlur={e => {
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'
+                  e.currentTarget.style.boxShadow = 'none'
+                }}
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-full bg-[#22D3EE] py-2.5 text-sm font-semibold text-[#0A0E17] transition-all hover:bg-[#22D3EE]/90 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-2.5 text-sm text-[#0A0E17] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{
+                fontFamily: 'var(--font-ibm)',
+                fontWeight: 600,
+                borderRadius: '100px',
+                background: '#22D3EE',
+                boxShadow: '0 0 20px rgba(34,211,238,0.2)',
+              }}
             >
               {loading ? (
                 <span className="inline-flex items-center gap-2">
@@ -159,10 +220,10 @@ export default function LoginPage() {
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
                     />
                   </svg>
-                  Iniciando sesi\u00f3n...
+                  Iniciando sesión...
                 </span>
               ) : (
-                'Iniciar sesi\u00f3n'
+                'Iniciar sesión'
               )}
             </button>
           </form>
@@ -172,7 +233,10 @@ export default function LoginPage() {
         <div className="mt-8">
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px flex-1 bg-white/[0.06]" />
-            <span className="text-xs font-medium text-[#475569] uppercase tracking-wider">
+            <span
+              className="uppercase"
+              style={{ fontFamily: 'var(--font-ibm)', fontWeight: 500, fontSize: '11px', letterSpacing: '1.5px', color: '#475569' }}
+            >
               Cuentas de demo
             </span>
             <div className="h-px flex-1 bg-white/[0.06]" />
@@ -184,20 +248,33 @@ export default function LoginPage() {
                 key={account.email}
                 type="button"
                 onClick={() => handleDemoClick(account)}
-                className="group relative flex items-start gap-3 rounded-xl border border-white/[0.06] bg-[#111827]/50 px-3.5 py-3 text-left transition-all hover:border-[#22D3EE]/20 hover:bg-[#111827]/80"
+                className="group relative flex items-start gap-3 text-left transition-all duration-200"
+                style={{
+                  borderRadius: '12px',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  background: 'rgba(17,24,39,0.5)',
+                  padding: '12px 14px',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = 'rgba(34,211,238,0.2)'
+                  e.currentTarget.style.background = 'rgba(17,24,39,0.8)'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'
+                  e.currentTarget.style.background = 'rgba(17,24,39,0.5)'
+                }}
               >
                 <span className="text-lg leading-none mt-0.5">
                   {account.icon}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium text-white truncate">
+                  <p style={{ fontFamily: 'var(--font-ibm)', fontWeight: 500, fontSize: '13px', color: '#F8FAFC' }} className="truncate">
                     {account.name}
                   </p>
-                  <p className="text-xs text-[#475569]">{account.role}</p>
+                  <p style={{ fontFamily: 'var(--font-ibm)', fontWeight: 300, fontSize: '11px', color: '#475569' }}>
+                    {account.role}
+                  </p>
                 </div>
-                <span className="absolute top-2.5 right-2.5 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                  {'\u{1F4CB}'}
-                </span>
               </button>
             ))}
           </div>
