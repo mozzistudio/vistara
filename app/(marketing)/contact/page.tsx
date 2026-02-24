@@ -35,7 +35,7 @@ export default function ContactPage() {
           <div className="lg:col-span-3">
             <div className="rounded-2xl bg-[#111827]/70 backdrop-blur-xl border border-white/[0.06] p-8 lg:p-10">
               {submitted ? (
-                <div className="text-center py-16">
+                <div className="text-center py-12">
                   <div className="w-16 h-16 rounded-full bg-[#34D399]/10 border border-[#34D399]/20 flex items-center justify-center mx-auto mb-6">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#34D399" strokeWidth="2" strokeLinecap="round">
                       <polyline points="20 6 9 17 4 12" />
@@ -47,15 +47,56 @@ export default function ContactPage() {
                   >
                     ¡Mensaje enviado!
                   </h3>
-                  <p className="text-sm text-[#94A3B8] mb-8 max-w-sm mx-auto">
-                    Gracias por tu interés. Nuestro equipo te contactará en menos de 24 horas hábiles.
+                  <p className="text-sm text-[#94A3B8] mb-6 max-w-sm mx-auto">
+                    Gracias por tu interés, {form.name || 'estimado usuario'}. Nuestro equipo te contactará en menos de 24 horas hábiles.
                   </p>
-                  <button
-                    onClick={() => { setSubmitted(false); setForm({ name: '', email: '', company: '', phone: '', team: '', message: '' }) }}
-                    className="px-6 py-2.5 rounded-xl bg-[#22D3EE] text-[#0A0E17] text-sm font-semibold cursor-pointer hover:brightness-110 transition-all"
-                  >
-                    Enviar otro mensaje
-                  </button>
+
+                  {/* Confirmation summary */}
+                  <div className="rounded-xl bg-[#0A0E17]/60 border border-white/[0.06] p-4 mb-8 text-left max-w-sm mx-auto">
+                    <p className="text-[11px] font-medium uppercase tracking-wider text-[#64748B] mb-3">Resumen de tu solicitud</p>
+                    <div className="space-y-2 text-sm">
+                      {form.name && <div className="flex justify-between"><span className="text-[#94A3B8]">Nombre</span><span className="text-[#F8FAFC]">{form.name}</span></div>}
+                      {form.email && <div className="flex justify-between"><span className="text-[#94A3B8]">Email</span><span className="text-[#F8FAFC]">{form.email}</span></div>}
+                      {form.company && <div className="flex justify-between"><span className="text-[#94A3B8]">Empresa</span><span className="text-[#F8FAFC]">{form.company}</span></div>}
+                      {form.team && <div className="flex justify-between"><span className="text-[#94A3B8]">Equipo</span><span className="text-[#F8FAFC]">{form.team} reps</span></div>}
+                    </div>
+                  </div>
+
+                  {/* Response SLA */}
+                  <div className="flex items-center justify-center gap-2 mb-8 text-xs text-[#64748B]">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    Tiempo promedio de respuesta: menos de 4 horas en horario laboral
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <button
+                      onClick={() => { setSubmitted(false); setForm({ name: '', email: '', company: '', phone: '', team: '', message: '' }) }}
+                      className="px-6 py-2.5 rounded-xl text-sm font-medium cursor-pointer hover:bg-white/[0.06] transition-all"
+                      style={{
+                        border: '1px solid rgba(255,255,255,0.1)',
+                        color: '#94A3B8',
+                      }}
+                    >
+                      Enviar otro mensaje
+                    </button>
+                    <button
+                      className="px-6 py-2.5 rounded-xl text-sm font-semibold cursor-pointer hover:brightness-110 transition-all"
+                      style={{
+                        background: 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)',
+                        color: '#fff',
+                        boxShadow: '0 0 20px rgba(139,92,246,0.2)',
+                      }}
+                      onClick={() => {
+                        const demoSection = document.querySelector('[data-demo-cta]')
+                        demoSection?.scrollIntoView({ behavior: 'smooth' })
+                      }}
+                    >
+                      Agendar demo ahora
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
@@ -199,6 +240,7 @@ export default function ContactPage() {
 
             {/* Demo CTA */}
             <div
+              data-demo-cta
               className="rounded-xl p-6 text-center relative overflow-hidden"
               style={{
                 background: 'linear-gradient(135deg, rgba(34,211,238,0.08) 0%, rgba(139,92,246,0.08) 100%)',

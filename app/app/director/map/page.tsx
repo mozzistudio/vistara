@@ -50,6 +50,7 @@ export default function MapPage() {
 
   return (
     <div className="flex h-full">
+      <h1 className="sr-only">Mapa de Equipo en Campo</h1>
       {/* Map Area */}
       <div className="flex-1 relative overflow-hidden">
         {/* Simulated dark map background */}
@@ -225,8 +226,8 @@ export default function MapPage() {
           })}
         </div>
 
-        {/* Layer toggles */}
-        <div className="absolute top-4 left-4 flex gap-2 z-20">
+        {/* Layer toggles with active filter chips */}
+        <div className="absolute top-4 left-4 flex flex-wrap gap-2 z-20">
           {(['Rutas', 'HCPs', 'Calor', 'Territorios'] as MapLayer[]).map(
             (layer) => {
               const isActive = activeLayers.has(layer)
@@ -234,17 +235,35 @@ export default function MapPage() {
                 <button
                   key={layer}
                   onClick={() => toggleLayer(layer)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
                     isActive
                       ? 'text-[#22D3EE] bg-[rgba(34,211,238,0.12)] border border-[rgba(34,211,238,0.2)]'
                       : 'text-[#94A3B8] bg-[rgba(17,24,39,0.8)] border border-[rgba(255,255,255,0.06)] hover:text-[#F8FAFC]'
                   }`}
                   style={{ backdropFilter: 'blur(8px)' }}
+                  aria-pressed={isActive}
                 >
+                  {isActive && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#22D3EE]" />
+                  )}
                   {layer}
+                  {isActive && (
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="opacity-60">
+                      <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                  )}
                 </button>
               )
             }
+          )}
+          {activeLayers.size > 0 && (
+            <button
+              onClick={() => setActiveLayers(new Set())}
+              className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer text-[#F87171] bg-[rgba(239,68,68,0.08)] border border-[rgba(239,68,68,0.15)] hover:bg-[rgba(239,68,68,0.15)]"
+              style={{ backdropFilter: 'blur(8px)' }}
+            >
+              Limpiar filtros ({activeLayers.size})
+            </button>
           )}
         </div>
 
@@ -299,17 +318,17 @@ export default function MapPage() {
                     : 'hover:bg-[rgba(255,255,255,0.02)]'
                 }`}
               >
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm font-medium text-[#F8FAFC]">
+                <div className="flex items-center justify-between gap-2 mb-1">
+                  <span className="text-sm font-medium text-[#F8FAFC] truncate">
                     {rep.name}
                   </span>
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1.5 shrink-0">
                     <div
-                      className="w-2 h-2 rounded-full"
+                      className="w-2 h-2 rounded-full shrink-0"
                       style={{ background: cfg.color }}
                     />
                     <span
-                      className="text-[10px] font-medium"
+                      className="text-[10px] font-medium whitespace-nowrap"
                       style={{ color: cfg.color }}
                     >
                       {cfg.label}

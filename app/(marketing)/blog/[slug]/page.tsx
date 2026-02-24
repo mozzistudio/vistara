@@ -225,7 +225,57 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
           })}
         </div>
 
-        <div className="mt-16 pt-8 border-t border-white/[0.06]">
+        {/* Inline CTA */}
+        <div className="mt-12 rounded-xl p-8 text-center" style={{ background: 'linear-gradient(135deg, rgba(34,211,238,0.08) 0%, rgba(139,92,246,0.08) 100%)', border: '1px solid rgba(34,211,238,0.12)' }}>
+          <h3 className="text-lg font-bold text-[#F8FAFC] mb-2" style={{ fontFamily: 'var(--font-syne)' }}>
+            Optimiza las rutas de tu equipo hoy
+          </h3>
+          <p className="text-sm text-[#94A3B8] mb-5 max-w-md mx-auto">
+            Solicita una demo personalizada y descubre cómo Vistara puede transformar la productividad de tu fuerza de ventas.
+          </p>
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center px-6 py-2.5 rounded-xl text-sm font-semibold text-[#0A0E17] hover:brightness-110 transition-all"
+            style={{ background: 'linear-gradient(135deg, #22D3EE, #06B6D4)', boxShadow: '0 0 20px rgba(34,211,238,0.2)' }}
+          >
+            Solicitar demo
+          </Link>
+        </div>
+
+        {/* Related posts */}
+        {(() => {
+          const otherSlugs = slugs.filter(s => s !== slug)
+          const related = otherSlugs.slice(0, 3)
+          if (related.length === 0) return null
+          return (
+            <div className="mt-16 pt-8 border-t border-white/[0.06]">
+              <h3 className="text-lg font-bold text-[#F8FAFC] mb-6" style={{ fontFamily: 'var(--font-syne)' }}>
+                Artículos relacionados
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {related.map(relSlug => {
+                  const rel = articles[relSlug]
+                  return (
+                    <Link
+                      key={relSlug}
+                      href={`/blog/${relSlug}`}
+                      className="group rounded-xl p-4 transition-all hover:-translate-y-0.5"
+                      style={{ background: '#111827', border: '1px solid rgba(255,255,255,0.06)' }}
+                    >
+                      <span className="text-[10px] font-medium text-[#22D3EE] uppercase tracking-wider">{rel.category}</span>
+                      <h4 className="text-sm font-bold text-[#F8FAFC] mt-1 mb-2 group-hover:text-[#22D3EE] transition-colors line-clamp-2" style={{ fontFamily: 'var(--font-syne)' }}>
+                        {rel.title}
+                      </h4>
+                      <span className="text-xs text-[#94A3B8]">{rel.readTime} lectura</span>
+                    </Link>
+                  )
+                })}
+              </div>
+            </div>
+          )
+        })()}
+
+        <div className="mt-8 pt-8 border-t border-white/[0.06]">
           <Link href="/blog" className="text-[#22D3EE] text-sm hover:underline">← Volver al blog</Link>
         </div>
       </article>

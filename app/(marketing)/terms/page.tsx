@@ -67,21 +67,41 @@ export default function TermsPage() {
           </p>
         </div>
 
-        <div className="space-y-8">
-          {sections.map((section, i) => (
-            <section
-              key={i}
-              className="group rounded-xl p-6 -mx-6 transition-colors hover:bg-white/[0.01]"
-            >
-              <h2
-                className="text-lg font-bold text-[#F8FAFC] mb-3"
-                style={{ fontFamily: 'var(--font-syne)' }}
+        <div className="lg:grid lg:grid-cols-[200px_1fr] lg:gap-10">
+          {/* Sticky TOC */}
+          <nav className="hidden lg:block" aria-label="Tabla de contenidos">
+            <div className="sticky top-28 space-y-2">
+              <p className="text-[11px] font-medium uppercase tracking-wider text-[#64748B] mb-3">Contenido</p>
+              {sections.map((section, i) => (
+                <a
+                  key={i}
+                  href={`#terms-section-${i}`}
+                  className="block text-xs text-[#94A3B8] hover:text-[#22D3EE] transition-colors py-1 truncate"
+                >
+                  {section.title}
+                </a>
+              ))}
+            </div>
+          </nav>
+
+          {/* Content */}
+          <div className="space-y-8">
+            {sections.map((section, i) => (
+              <section
+                key={i}
+                id={`terms-section-${i}`}
+                className="group rounded-xl p-6 -mx-6 transition-colors hover:bg-white/[0.01] scroll-mt-28"
               >
-                {section.title}
-              </h2>
-              <p className="text-[#94A3B8] leading-relaxed text-sm">{section.content}</p>
-            </section>
-          ))}
+                <h2
+                  className="text-lg font-bold text-[#F8FAFC] mb-3"
+                  style={{ fontFamily: 'var(--font-syne)' }}
+                >
+                  {section.title}
+                </h2>
+                <p className="text-[#94A3B8] leading-relaxed text-sm">{section.content}</p>
+              </section>
+            ))}
+          </div>
         </div>
       </article>
     </div>

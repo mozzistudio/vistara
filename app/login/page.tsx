@@ -50,6 +50,7 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const [demoExpanded, setDemoExpanded] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -316,8 +317,33 @@ export default function LoginPage() {
             <div className="h-px flex-1" style={{ background: 'rgba(255,255,255,0.06)' }} />
           </div>
 
-          {/* Demo accounts - one-click login */}
-          <div className="space-y-2.5">
+          {/* Accordion toggle for small screens */}
+          <button
+            type="button"
+            onClick={() => setDemoExpanded(!demoExpanded)}
+            className="sm:hidden w-full flex items-center justify-between px-4 py-3 rounded-xl mb-3 cursor-pointer transition-all"
+            style={{
+              border: '1px solid rgba(255,255,255,0.06)',
+              background: 'rgba(15,22,41,0.5)',
+            }}
+          >
+            <span className="text-sm text-[#94A3B8]">Usar perfil de demo</span>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#94A3B8"
+              strokeWidth="2"
+              strokeLinecap="round"
+              className={`transition-transform duration-200 ${demoExpanded ? 'rotate-180' : ''}`}
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </button>
+
+          {/* Demo accounts - one-click login (always visible on sm+, collapsible on mobile) */}
+          <div className={`space-y-2.5 ${demoExpanded ? 'block' : 'hidden'} sm:block`}>
             {demoAccounts.map((account) => (
               <button
                 key={account.email}

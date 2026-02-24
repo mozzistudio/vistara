@@ -34,7 +34,8 @@ export default function RoleToggle() {
   return (
     <button
       onClick={toggle}
-      className="relative flex items-center h-10 rounded-full p-1 transition-all duration-300 cursor-pointer"
+      aria-label={`Vista actual: ${isDirector ? 'Director' : 'Representante'}. Cambiar a ${isDirector ? 'Representante' : 'Director'}.`}
+      className="relative flex items-center h-10 rounded-full p-1 transition-all duration-300 cursor-pointer focus-ring"
       style={{
         background: isDirector
           ? 'linear-gradient(135deg, rgba(139,92,246,0.3), rgba(139,92,246,0.1))'
@@ -52,7 +53,9 @@ export default function RoleToggle() {
             : 'text-[#94A3B8] hover:text-[#F8FAFC]'
         }`}
       >
-        <span>👔</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M3 3v18h18" /><path d="M7 16l4-8 4 4 5-6" />
+        </svg>
         <span className="hidden sm:inline">Director</span>
       </span>
       <span
@@ -62,8 +65,10 @@ export default function RoleToggle() {
             : 'text-[#94A3B8] hover:text-[#F8FAFC]'
         }`}
       >
-        <span>🩺</span>
-        <span className="hidden sm:inline">Visiteur Médical</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        </svg>
+        <span className="hidden sm:inline">Representante</span>
       </span>
     </button>
   )

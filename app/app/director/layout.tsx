@@ -10,7 +10,7 @@ export default function DirectorLayout({
   return (
     <div className="flex h-full overflow-hidden">
       <Sidebar />
-      <main className="flex-1 overflow-y-auto bg-[#0A0E17]">{children}</main>
+      <div className="flex-1 overflow-y-auto bg-[#0A0E17]" role="region" aria-label="Contenido principal">{children}</div>
     </div>
   )
 }
