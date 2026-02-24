@@ -248,7 +248,7 @@ export default function MapPage() {
                   )}
                   {layer}
                   {isActive && (
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className="opacity-60">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="opacity-60">
                       <path d="M18 6L6 18M6 6l12 12" />
                     </svg>
                   )}
@@ -318,17 +318,17 @@ export default function MapPage() {
                     : 'hover:bg-[rgba(255,255,255,0.02)]'
                 }`}
               >
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm font-medium text-[#F8FAFC]">
+                <div className="flex items-center justify-between gap-2 mb-1">
+                  <span className="text-sm font-medium text-[#F8FAFC] truncate">
                     {rep.name}
                   </span>
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1.5 shrink-0">
                     <div
-                      className="w-2 h-2 rounded-full"
+                      className="w-2 h-2 rounded-full shrink-0"
                       style={{ background: cfg.color }}
                     />
                     <span
-                      className="text-[10px] font-medium"
+                      className="text-[10px] font-medium whitespace-nowrap"
                       style={{ color: cfg.color }}
                     >
                       {cfg.label}

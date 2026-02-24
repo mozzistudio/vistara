@@ -192,22 +192,22 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 1;
 }
 
-/* Global focus-visible styling for keyboard navigation */
-:focus-visible {
+/* Keyboard focus-visible styling — scoped to interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
   outline: 2px solid rgba(34, 211, 238, 0.5);
   outline-offset: 2px;
-  border-radius: 4px;
 }
 
-/* Explicit focus ring utility (for components that need custom application) */
+/* Explicit focus ring utility */
 .focus-ring:focus-visible {
   outline: 2px solid rgba(34, 211, 238, 0.5);
   outline-offset: 2px;
-}
-
-/* Ensure interactive elements have minimum touch target */
-button, [role="button"], a {
-  min-height: 32px;
 }
 
 /* Reduced motion preference */
