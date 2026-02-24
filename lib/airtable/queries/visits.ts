@@ -30,7 +30,7 @@ function mapRecord(record: any): Visit {
     status: record.get('Status') || '',
     rating: record.get('Rating') || null,
     notes: record.get('Notes') || '',
-    productsDiscussed: record.get('Products Discussed') || [],
+    productsDiscussed: (record.get('Products Discussed') || '').split('\n').map((p: string) => p.trim()).filter(Boolean),
     duration: record.get('Duration (min)') || 0,
     checkInTime: record.get('Check-in Time') || '',
     checkOutTime: record.get('Check-out Time') || '',
@@ -91,7 +91,7 @@ export async function getVisitsForDate(repId: string, date: string): Promise<Vis
 
 export async function getVisitsStats(dateFrom?: string, dateTo?: string) {
   const visits = await getVisits({
-    status: 'Completed',
+    status: 'completed',
     dateFrom,
     dateTo,
   })
