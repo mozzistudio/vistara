@@ -76,7 +76,7 @@ function Skeleton({ className = '' }: { className?: string }) {
 export default function DashboardPage() {
   const [dateRange, setDateRange] = useState<DateRange>(getDefaultRange())
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['analytics', dateRange],
     queryFn: () =>
       fetch(
@@ -114,6 +114,26 @@ export default function DashboardPage() {
         </div>
         <DateRangePicker value={dateRange} onChange={setDateRange} />
       </div>
+
+      {/* Error state */}
+      {isError && (
+        <div className="rounded-xl bg-[#EF4444]/5 border border-[#EF4444]/15 p-6 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-[#EF4444]/10 flex items-center justify-center shrink-0">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2" strokeLinecap="round">
+                <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+            </div>
+            <div>
+              <p className="text-sm text-[#F8FAFC] font-medium">Error al cargar analytics</p>
+              <p className="text-xs text-[#94A3B8]">Mostrando datos de ejemplo. Verifica la conexión con Airtable.</p>
+            </div>
+          </div>
+          <button onClick={() => refetch()} className="px-4 py-2 rounded-lg text-xs font-medium bg-[#22D3EE]/10 text-[#22D3EE] border border-[#22D3EE]/20 hover:bg-[#22D3EE]/20 transition-colors cursor-pointer shrink-0">
+            Reintentar
+          </button>
+        </div>
+      )}
 
       {/* KPI Cards */}
       {isLoading ? (

@@ -15,9 +15,12 @@ export default function HCPsPage() {
   const [page, setPage] = useState(0)
   const perPage = 15
 
-  const { data: hcps = [], isLoading } = useQuery({
+  const { data: hcps = [], isLoading, isError, refetch } = useQuery({
     queryKey: ['hcps'],
-    queryFn: () => fetch('/api/hcps').then(r => r.json()),
+    queryFn: () => fetch('/api/hcps').then(r => {
+      if (!r.ok) throw new Error('Failed to fetch HCPs')
+      return r.json()
+    }),
   })
 
   const filtered = hcps.filter((h: any) => {
@@ -97,10 +100,45 @@ export default function HCPsPage() {
                     ))}
                   </tr>
                 ))
+              ) : isError ? (
+                <tr>
+                  <td colSpan={8} className="px-4 py-16 text-center">
+                    <div className="flex flex-col items-center gap-3">
+                      <div className="w-12 h-12 rounded-full bg-[#EF4444]/10 border border-[#EF4444]/20 flex items-center justify-center">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2" strokeLinecap="round">
+                          <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg>
+                      </div>
+                      <p className="text-sm text-[#F8FAFC] font-medium">Error al cargar los datos</p>
+                      <p className="text-xs text-[#94A3B8]">No se pudo conectar con el servidor</p>
+                      <button onClick={() => refetch()} className="mt-2 px-4 py-2 rounded-lg text-xs font-medium bg-[#22D3EE]/10 text-[#22D3EE] border border-[#22D3EE]/20 hover:bg-[#22D3EE]/20 transition-colors cursor-pointer">
+                        Reintentar
+                      </button>
+                    </div>
+                  </td>
+                </tr>
               ) : paginated.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="px-4 py-12 text-center text-[#94A3B8]">
-                    No se encontraron HCPs
+                  <td colSpan={8} className="px-4 py-16 text-center">
+                    <div className="flex flex-col items-center gap-3">
+                      <div className="w-12 h-12 rounded-full bg-[#94A3B8]/10 border border-white/[0.06] flex items-center justify-center">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" strokeWidth="2" strokeLinecap="round">
+                          <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        </svg>
+                      </div>
+                      <p className="text-sm text-[#F8FAFC] font-medium">Sin resultados</p>
+                      <p className="text-xs text-[#94A3B8]">
+                        {search ? `No se encontraron HCPs para "${search}"` : 'No hay HCPs en el segmento seleccionado'}
+                      </p>
+                      {(search || segmentFilter !== 'Todos') && (
+                        <button
+                          onClick={() => { setSearch(''); setSegmentFilter('Todos'); setPage(0) }}
+                          className="mt-1 px-4 py-2 rounded-lg text-xs font-medium bg-white/[0.04] text-[#94A3B8] border border-white/[0.06] hover:bg-white/[0.08] transition-colors cursor-pointer"
+                        >
+                          Limpiar filtros
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ) : (
