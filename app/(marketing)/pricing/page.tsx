@@ -44,7 +44,7 @@ const tiers = [
   },
   {
     name: 'Enterprise',
-    price: 'Personalizado',
+    price: 'Custom',
     unit: '',
     description: 'Solución a medida para grandes operaciones farmacéuticas en la región.',
     limit: 'Representantes ilimitados',
@@ -86,58 +86,45 @@ const comparisonFeatures = [
 const faqs = [
   {
     question: '¿Puedo cambiar de plan en cualquier momento?',
-    answer:
-      'Sí, puedes escalar o reducir tu plan en cualquier momento. Los cambios se aplican en tu próximo ciclo de facturación. Si escalas a un plan superior, se prorratean los días restantes del ciclo actual.',
+    answer: 'Sí, puedes escalar o reducir tu plan en cualquier momento. Los cambios se aplican en tu próximo ciclo de facturación. Si escalas a un plan superior, se prorratean los días restantes del ciclo actual.',
   },
   {
     question: '¿Hay compromiso de permanencia mínima?',
-    answer:
-      'No exigimos contratos a largo plazo. Nuestros planes son mensuales y puedes cancelar cuando quieras. Para clientes Enterprise, ofrecemos descuentos por compromisos anuales que van del 15% al 25%.',
+    answer: 'No exigimos contratos a largo plazo. Nuestros planes son mensuales y puedes cancelar cuando quieras. Para clientes Enterprise, ofrecemos descuentos por compromisos anuales que van del 15% al 25%.',
   },
   {
     question: '¿Qué métodos de pago aceptan?',
-    answer:
-      'Aceptamos tarjetas de crédito (Visa, Mastercard, American Express), transferencias bancarias locales en Panamá y ACH. Para clientes Enterprise, también ofrecemos facturación por orden de compra con términos neto-30.',
+    answer: 'Aceptamos tarjetas de crédito (Visa, Mastercard, American Express), transferencias bancarias locales en Panamá y ACH. Para clientes Enterprise, también ofrecemos facturación por orden de compra con términos neto-30.',
   },
   {
     question: '¿Ofrecen un período de prueba gratuito?',
-    answer:
-      'Sí, ofrecemos 14 días de prueba gratuita sin necesidad de tarjeta de crédito en los planes Starter y Professional. Durante la prueba tienes acceso completo a todas las funcionalidades del plan seleccionado.',
+    answer: 'Sí, ofrecemos 14 días de prueba gratuita sin necesidad de tarjeta de crédito en los planes Starter y Professional. Durante la prueba tienes acceso completo a todas las funcionalidades del plan seleccionado.',
   },
   {
     question: '¿Los precios incluyen la configuración inicial?',
-    answer:
-      'Los planes Starter y Professional incluyen onboarding guiado virtual sin costo adicional. El plan Enterprise incluye configuración completa, migración de datos, integraciones personalizadas y capacitación presencial como parte del acuerdo.',
+    answer: 'Los planes Starter y Professional incluyen onboarding guiado virtual sin costo adicional. El plan Enterprise incluye configuración completa, migración de datos, integraciones personalizadas y capacitación presencial como parte del acuerdo.',
   },
   {
     question: '¿Cómo funciona la facturación por representante?',
-    answer:
-      'Se factura por cada usuario activo con rol de representante en la plataforma. Los gerentes y administradores no generan costo adicional. Si un representante es desactivado durante el mes, deja de facturarse en el siguiente ciclo.',
+    answer: 'Se factura por cada usuario activo con rol de representante en la plataforma. Los gerentes y administradores no generan costo adicional. Si un representante es desactivado durante el mes, deja de facturarse en el siguiente ciclo.',
   },
 ]
 
-function CheckIcon() {
-  return (
-    <svg className="w-5 h-5 text-[#22D3EE]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
-  )
-}
-
-function XIcon() {
-  return (
-    <svg className="w-5 h-5 text-[#94A3B8]/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-      <line x1="18" y1="6" x2="6" y2="18" />
-      <line x1="6" y1="6" x2="18" y2="18" />
-    </svg>
-  )
-}
-
 function CellValue({ value }: { value: boolean | string }) {
   if (typeof value === 'boolean') {
-    return value ? <CheckIcon /> : <XIcon />
+    return value ? (
+      <div className="w-6 h-6 rounded-full bg-[#22D3EE]/10 flex items-center justify-center">
+        <svg className="w-3.5 h-3.5 text-[#22D3EE]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      </div>
+    ) : (
+      <div className="w-6 h-6 rounded-full bg-white/[0.02] flex items-center justify-center">
+        <div className="w-1.5 h-1.5 rounded-full bg-[#334155]" />
+      </div>
+    )
   }
-  return <span className="text-sm text-[#F8FAFC]">{value}</span>
+  return <span className="text-sm text-[#F8FAFC] font-medium">{value}</span>
 }
 
 export default function PricingPage() {
@@ -148,15 +135,16 @@ export default function PricingPage() {
       {/* Hero */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-20">
         <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#8B5CF6]/20 bg-[#8B5CF6]/5 text-[#8B5CF6] text-sm mb-6">
-          Precios
+          Precios transparentes
         </span>
         <h1
           className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#F8FAFC] mb-6"
-          style={{ fontFamily: 'var(--font-syne)' }}
+          style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, letterSpacing: '-1px' }}
         >
-          Precios simples y transparentes
+          Invierte en productividad,{' '}
+          <span className="gradient-text">no en kilómetros</span>
         </h1>
-        <p className="text-lg sm:text-xl text-[#94A3B8] max-w-3xl mx-auto leading-relaxed">
+        <p className="text-lg sm:text-xl text-[#94A3B8] max-w-2xl mx-auto leading-relaxed">
           Sin costos ocultos. Sin sorpresas. Elige el plan que mejor se adapte al
           tamaño y las necesidades de tu equipo de campo.
         </p>
@@ -164,19 +152,34 @@ export default function PricingPage() {
 
       {/* Pricing cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-32">
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
           {tiers.map((tier) => (
             <div
               key={tier.name}
-              className={`relative rounded-3xl border p-8 flex flex-col ${
+              className={`relative rounded-2xl border p-8 flex flex-col transition-all duration-300 ${
                 tier.popular
-                  ? 'border-[#22D3EE]/30 bg-[#111827] shadow-[0_0_40px_rgba(34,211,238,0.1)]'
-                  : 'border-white/[0.06] bg-[#111827]/50'
+                  ? 'border-[#22D3EE]/25 bg-[#111827] scale-[1.02] shadow-[0_0_60px_rgba(34,211,238,0.08)]'
+                  : 'border-white/[0.06] bg-[#111827]/50 hover:border-white/[0.1]'
               }`}
             >
+              {/* Gradient top line for popular */}
+              {tier.popular && (
+                <div
+                  className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl"
+                  style={{ background: 'linear-gradient(90deg, #22D3EE, #8B5CF6)' }}
+                />
+              )}
+
               {tier.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#22D3EE] text-[#0A0E17] text-xs font-bold uppercase tracking-wider">
+                  <span
+                    className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider"
+                    style={{
+                      background: 'linear-gradient(135deg, #22D3EE 0%, #06B6D4 100%)',
+                      color: '#0A0E17',
+                      boxShadow: '0 4px 12px rgba(34,211,238,0.3)',
+                    }}
+                  >
                     Más popular
                   </span>
                 </div>
@@ -189,35 +192,47 @@ export default function PricingPage() {
                 >
                   {tier.name}
                 </h3>
-                <p className="text-sm text-[#94A3B8] mb-6">{tier.description}</p>
+                <p className="text-sm text-[#64748B] mb-6 leading-relaxed">{tier.description}</p>
                 <div className="flex items-baseline gap-1">
                   <span
                     className="text-4xl sm:text-5xl font-bold text-[#F8FAFC]"
-                    style={{ fontFamily: 'var(--font-syne)' }}
+                    style={{ fontFamily: 'var(--font-syne)', fontWeight: 800 }}
                   >
                     {tier.price}
                   </span>
-                  {tier.unit && <span className="text-[#94A3B8] text-base">{tier.unit}</span>}
+                  {tier.unit && <span className="text-[#64748B] text-base">{tier.unit}</span>}
                 </div>
-                <p className="text-sm text-[#94A3B8] mt-2">{tier.limit}</p>
+                <p className="text-xs text-[#475569] mt-2">{tier.limit}</p>
               </div>
 
-              <ul className="space-y-3 mb-8 flex-1">
+              <ul className="space-y-3.5 mb-8 flex-1">
                 {tier.features.map((feature, i) => (
                   <li key={i} className="flex items-start gap-3">
-                    <CheckIcon />
-                    <span className="text-sm text-[#F8FAFC]/80">{feature}</span>
+                    {i === 0 && feature.startsWith('Todo') ? (
+                      <span className="text-xs text-[#8B5CF6] font-medium pt-0.5">{feature}</span>
+                    ) : (
+                      <>
+                        <svg className="w-4 h-4 text-[#22D3EE] mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        <span className="text-sm text-[#94A3B8]">{feature}</span>
+                      </>
+                    )}
                   </li>
                 ))}
               </ul>
 
               <Link
                 href={tier.ctaHref}
-                className={`block text-center py-3.5 rounded-full font-semibold text-base transition-all ${
+                className={`block text-center py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 ${
                   tier.popular
-                    ? 'bg-[#22D3EE] text-[#0A0E17] hover:bg-[#22D3EE]/90 shadow-[0_0_20px_rgba(34,211,238,0.3)]'
-                    : 'border border-white/[0.06] text-[#F8FAFC] hover:border-[#22D3EE]/40 hover:text-[#22D3EE]'
+                    ? 'text-[#0A0E17] hover:brightness-110'
+                    : 'border border-white/[0.08] text-[#F8FAFC] hover:border-[#22D3EE]/30 hover:text-[#22D3EE]'
                 }`}
+                style={tier.popular ? {
+                  background: 'linear-gradient(135deg, #22D3EE 0%, #06B6D4 100%)',
+                  boxShadow: '0 0 24px rgba(34,211,238,0.2)',
+                } : undefined}
               >
                 {tier.cta}
               </Link>
@@ -227,48 +242,51 @@ export default function PricingPage() {
       </section>
 
       {/* Comparison table */}
-      <section className="bg-[#111827]/50 py-24">
+      <section className="py-24" style={{ background: 'rgba(17,24,39,0.3)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2
             className="text-3xl sm:text-4xl font-bold text-[#F8FAFC] text-center mb-16"
-            style={{ fontFamily: 'var(--font-syne)' }}
+            style={{ fontFamily: 'var(--font-syne)', fontWeight: 800 }}
           >
-            Comparación detallada de planes
+            Comparación detallada
           </h2>
 
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto rounded-xl border border-white/[0.06]">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-white/[0.06]">
-                  <th className="text-left py-4 pr-8 text-sm font-medium text-[#94A3B8] w-1/4">
+                <tr style={{ background: 'rgba(17,24,39,0.6)' }}>
+                  <th className="text-left py-4 px-6 text-xs font-medium uppercase tracking-wider text-[#64748B] w-1/4">
                     Funcionalidad
                   </th>
-                  <th className="text-center py-4 px-4 text-sm font-medium text-[#94A3B8] w-1/4">
+                  <th className="text-center py-4 px-4 text-xs font-medium uppercase tracking-wider text-[#64748B] w-1/4">
                     Starter
                   </th>
-                  <th className="text-center py-4 px-4 text-sm font-medium text-[#22D3EE] w-1/4">
+                  <th className="text-center py-4 px-4 text-xs font-medium uppercase tracking-wider text-[#22D3EE] w-1/4">
                     Professional
                   </th>
-                  <th className="text-center py-4 px-4 text-sm font-medium text-[#94A3B8] w-1/4">
+                  <th className="text-center py-4 px-4 text-xs font-medium uppercase tracking-wider text-[#64748B] w-1/4">
                     Enterprise
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {comparisonFeatures.map((row, i) => (
-                  <tr key={i} className="border-b border-white/[0.04]">
-                    <td className="py-4 pr-8 text-sm text-[#F8FAFC]">{row.name}</td>
-                    <td className="py-4 px-4 text-center">
+                  <tr
+                    key={i}
+                    className="border-t border-white/[0.04] hover:bg-white/[0.01] transition-colors"
+                  >
+                    <td className="py-3.5 px-6 text-sm text-[#94A3B8]">{row.name}</td>
+                    <td className="py-3.5 px-4 text-center">
                       <div className="flex justify-center">
                         <CellValue value={row.starter} />
                       </div>
                     </td>
-                    <td className="py-4 px-4 text-center">
+                    <td className="py-3.5 px-4 text-center" style={{ background: 'rgba(34,211,238,0.02)' }}>
                       <div className="flex justify-center">
                         <CellValue value={row.professional} />
                       </div>
                     </td>
-                    <td className="py-4 px-4 text-center">
+                    <td className="py-3.5 px-4 text-center">
                       <div className="flex justify-center">
                         <CellValue value={row.enterprise} />
                       </div>
@@ -286,43 +304,57 @@ export default function PricingPage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2
             className="text-3xl sm:text-4xl font-bold text-[#F8FAFC] text-center mb-16"
-            style={{ fontFamily: 'var(--font-syne)' }}
+            style={{ fontFamily: 'var(--font-syne)', fontWeight: 800 }}
           >
             Preguntas frecuentes
           </h2>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className="rounded-2xl border border-white/[0.06] bg-[#111827]/50 overflow-hidden"
+                className="rounded-xl border border-white/[0.06] overflow-hidden transition-colors"
+                style={{ background: openFaq === index ? 'rgba(17,24,39,0.6)' : 'rgba(17,24,39,0.3)' }}
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
                   className="w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer"
                 >
-                  <span className="text-base font-medium text-[#F8FAFC] pr-8">
+                  <span className="text-[15px] font-medium text-[#F8FAFC] pr-8">
                     {faq.question}
                   </span>
-                  <svg
-                    className={`w-5 h-5 text-[#94A3B8] transition-transform duration-200 shrink-0 ${
-                      openFaq === index ? 'rotate-180' : ''
-                    }`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="2"
+                  <div
+                    className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-all duration-200"
+                    style={{
+                      background: openFaq === index ? 'rgba(34,211,238,0.1)' : 'rgba(255,255,255,0.04)',
+                      transform: openFaq === index ? 'rotate(180deg)' : 'rotate(0deg)',
+                    }}
                   >
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
+                    <svg
+                      className="w-4 h-4 transition-colors"
+                      style={{ color: openFaq === index ? '#22D3EE' : '#64748B' }}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </div>
                 </button>
-                {openFaq === index && (
+                <div
+                  className="overflow-hidden transition-all duration-200"
+                  style={{
+                    maxHeight: openFaq === index ? '200px' : '0',
+                    opacity: openFaq === index ? 1 : 0,
+                  }}
+                >
                   <div className="px-6 pb-5">
-                    <p className="text-[#94A3B8] text-base leading-relaxed">
+                    <p className="text-[#94A3B8] text-sm leading-relaxed">
                       {faq.answer}
                     </p>
                   </div>
-                )}
+                </div>
               </div>
             ))}
           </div>
@@ -330,21 +362,33 @@ export default function PricingPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#111827]/50 py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section
+        className="py-24 relative overflow-hidden"
+        style={{
+          background: `
+            radial-gradient(ellipse 60% 50% at 30% 50%, rgba(34,211,238,0.06) 0%, transparent 60%),
+            radial-gradient(ellipse 60% 50% at 70% 50%, rgba(139,92,246,0.06) 0%, transparent 60%),
+            rgba(17,24,39,0.3)
+          `,
+        }}
+      >
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2
-            className="text-3xl sm:text-4xl font-bold text-[#F8FAFC] mb-6"
-            style={{ fontFamily: 'var(--font-syne)' }}
+            className="text-3xl sm:text-4xl font-bold text-[#F8FAFC] mb-5"
+            style={{ fontFamily: 'var(--font-syne)', fontWeight: 800 }}
           >
-            ¿Listo para optimizar tu equipo de campo?
+            ¿Listo para optimizar tu equipo?
           </h2>
-          <p className="text-lg text-[#94A3B8] mb-10 max-w-2xl mx-auto">
-            Comienza tu prueba gratuita de 14 días. Sin tarjeta de crédito. Sin
-            compromisos.
+          <p className="text-lg text-[#94A3B8] mb-10 max-w-xl mx-auto">
+            14 días de prueba gratuita. Sin tarjeta de crédito. Sin compromisos.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-[#22D3EE] text-[#0A0E17] font-semibold text-base hover:bg-[#22D3EE]/90 transition-all shadow-[0_0_20px_rgba(34,211,238,0.3)]"
+            className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-[#0A0E17] font-semibold text-base hover:brightness-110 transition-all"
+            style={{
+              background: 'linear-gradient(135deg, #22D3EE 0%, #06B6D4 100%)',
+              boxShadow: '0 0 30px rgba(34,211,238,0.25), 0 4px 12px rgba(0,0,0,0.3)',
+            }}
           >
             Comenzar prueba gratuita
           </Link>
