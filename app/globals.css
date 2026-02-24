@@ -9,6 +9,9 @@
   --color-success: #34D399;
   --color-warning: #FB923C;
   --color-error: #EF4444;
+  --color-emerald: #34D399;
+  --color-amber: #FBBF24;
+  --color-rose: #F43F5E;
   --color-text: #F8FAFC;
   --color-text-muted: #94A3B8;
   --color-border: rgba(255, 255, 255, 0.06);
@@ -52,9 +55,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Glassmorphism utility */
 .glass {
-  background: rgba(17, 24, 39, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(10, 14, 23, 0.7);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -78,4 +81,45 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50%;
   background: inherit;
   animation: pulse-ring 2s ease-out infinite;
+}
+
+/* Floating animation for WhatsApp mockup */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+/* Fade in up animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, #22D3EE 0%, #8B5CF6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section tag with line before */
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-tag::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #22D3EE;
+  border-radius: 1px;
 }

@@ -7,7 +7,7 @@ import Link from 'next/link'
 /*  Animated Counter Hook                                              */
 /* ------------------------------------------------------------------ */
 function useCounter(target: number, suffix = '', prefix = '', duration = 2000) {
-  const [value, setValue] = useState(0)
+  const [value, setValue] = useState(target)
   const ref = useRef<HTMLDivElement>(null)
   const started = useRef(false)
 
@@ -19,11 +19,11 @@ function useCounter(target: number, suffix = '', prefix = '', duration = 2000) {
       ([entry]) => {
         if (entry.isIntersecting && !started.current) {
           started.current = true
+          setValue(0)
           const start = performance.now()
           const step = (now: number) => {
             const elapsed = now - start
             const progress = Math.min(elapsed / duration, 1)
-            // ease-out cubic
             const eased = 1 - Math.pow(1 - progress, 3)
             setValue(Math.round(eased * target))
             if (progress < 1) requestAnimationFrame(step)
@@ -45,40 +45,40 @@ function useCounter(target: number, suffix = '', prefix = '', duration = 2000) {
 /* ------------------------------------------------------------------ */
 const features = [
   {
-    icon: '\uD83D\uDDFA\uFE0F',
-    title: 'Optimizaci\u00f3n IA de Rutas',
+    icon: '🗺️',
+    title: 'Optimización IA de Rutas',
     description:
-      'Algoritmos de enrutamiento inteligente que priorizan HCPs de alto valor, minimizando kil\u00f3metros recorridos y maximizando el tiempo cara-a-cara con m\u00e9dicos clave.',
+      'Algoritmos de enrutamiento inteligente que priorizan HCPs de alto valor, minimizando kilómetros recorridos y maximizando el tiempo cara-a-cara con médicos clave.',
   },
   {
-    icon: '\uD83D\uDCAC',
+    icon: '💬',
     title: 'Chat WhatsApp Integrado',
     description:
-      'Tus representantes reciben la ruta del d\u00eda, alertas de re-ruteo y briefings directamente en WhatsApp. Sin apps adicionales, sin fricci\u00f3n.',
+      'Tus representantes reciben la ruta del día, alertas de re-ruteo y briefings directamente en WhatsApp. Sin apps adicionales, sin fricción.',
   },
   {
-    icon: '\uD83D\uDCCB',
+    icon: '📋',
     title: 'Briefings Inteligentes',
     description:
-      'Antes de cada visita, el rep recibe un resumen con historial de interacciones, productos de inter\u00e9s y puntos clave de conversaci\u00f3n generados por IA.',
+      'Antes de cada visita, el rep recibe un resumen con historial de interacciones, productos de interés y puntos clave de conversación generados por IA.',
   },
   {
-    icon: '\uD83D\uDD04',
-    title: 'Re-ruteo Din\u00e1mico',
+    icon: '🔄',
+    title: 'Re-ruteo Dinámico',
     description:
-      'Cancelaciones, tr\u00e1fico o emergencias? Vistara recalcula la ruta en tiempo real y notifica al visitador con la mejor alternativa disponible.',
+      'Cancelaciones, tráfico o emergencias? Vistara recalcula la ruta en tiempo real y notifica al visitador con la mejor alternativa disponible.',
   },
   {
-    icon: '\uD83D\uDD17',
-    title: 'Sincronizaci\u00f3n CRM',
+    icon: '🔗',
+    title: 'Sincronización CRM',
     description:
-      'Integraci\u00f3n bidireccional con Veeva, Salesforce y IQVIA. Las visitas se registran autom\u00e1ticamente con geolocalizaci\u00f3n y duraci\u00f3n verificada.',
+      'Integración bidireccional con Veeva, Salesforce y IQVIA. Las visitas se registran automáticamente con geolocalización y duración verificada.',
   },
   {
-    icon: '\uD83D\uDEE1\uFE0F',
+    icon: '🛡️',
     title: 'Cumplimiento Regulatorio',
     description:
-      'Frecuencias de visita, restricciones de zona y l\u00edmites regulatorios de Panam\u00e1 integrados en cada ruta. Auditor\u00eda completa en un clic.',
+      'Frecuencias de visita, restricciones de zona y límites regulatorios de Panamá integrados en cada ruta. Auditoría completa en un clic.',
   },
 ]
 
@@ -94,23 +94,23 @@ const companies = [
 const testimonials = [
   {
     quote:
-      'Desde que implementamos Vistara, nuestros visitadores cubren un 30% m\u00e1s de m\u00e9dicos clase A por semana. La diferencia en productividad es impresionante.',
-    name: 'Dra. Carolina M\u00e9ndez',
+      'Desde que implementamos Vistara, nuestros visitadores cubren un 30% más de médicos clase A por semana. La diferencia en productividad es impresionante.',
+    name: 'Dra. Carolina Méndez',
     role: 'Directora Comercial',
     company: 'BioGenesis Pharma',
   },
   {
     quote:
-      'El re-ruteo din\u00e1mico nos ha salvado incontables visitas perdidas. Cuando un m\u00e9dico cancela, el sistema ya tiene la alternativa lista en WhatsApp.',
+      'El re-ruteo dinámico nos ha salvado incontables visitas perdidas. Cuando un médico cancela, el sistema ya tiene la alternativa lista en WhatsApp.',
     name: 'Roberto Castillo',
     role: 'Gerente de Fuerza de Ventas',
     company: 'MediLatam',
   },
   {
     quote:
-      'Lo que m\u00e1s valoro es que los reps lo adoptaron sin resistencia. Llega por WhatsApp, es intuitivo, y los briefings pre-visita les dan una confianza enorme.',
+      'Lo que más valoro es que los reps lo adoptaron sin resistencia. Llega por WhatsApp, es intuitivo, y los briefings pre-visita les dan una confianza enorme.',
     name: 'Lic. Valeria Ng',
-    role: 'Representante M\u00e9dica Senior',
+    role: 'Representante Médica Senior',
     company: 'Isthmus Therapeutics',
   },
 ]
@@ -120,13 +120,15 @@ const testimonials = [
 /* ------------------------------------------------------------------ */
 function WhatsAppMockup() {
   return (
-    <div className="w-full max-w-[380px] mx-auto">
+    <div className="w-full max-w-[380px] mx-auto" style={{ animation: 'float 6s ease-in-out infinite' }}>
       {/* Phone frame */}
       <div
-        className="rounded-[2rem] overflow-hidden border border-white/[0.08] shadow-2xl"
+        className="overflow-hidden"
         style={{
+          borderRadius: '24px',
+          border: '1px solid rgba(255,255,255,0.08)',
           background: 'linear-gradient(145deg, #1A2236 0%, #111827 100%)',
-          boxShadow: '0 25px 60px rgba(0,0,0,0.5), 0 0 40px rgba(34,211,238,0.08)',
+          boxShadow: '0 30px 80px rgba(0,0,0,0.5), 0 0 60px rgba(34,211,238,0.06)',
         }}
       >
         {/* WhatsApp header */}
@@ -134,50 +136,61 @@ function WhatsAppMockup() {
           <div className="w-9 h-9 rounded-full bg-[#22D3EE]/20 flex items-center justify-center text-xs font-bold text-[#22D3EE]">
             V
           </div>
-          <div>
-            <p className="text-sm font-semibold text-white leading-tight">Vistara Bot</p>
-            <p className="text-[11px] text-white/60">en l\u00ednea</p>
+          <div className="flex-1">
+            <p className="text-sm font-semibold text-white leading-tight">Vistara AI 🤖</p>
+            <p className="text-[11px] text-white/60">en línea</p>
           </div>
         </div>
 
         {/* Chat body */}
         <div
-          className="px-3 py-4 space-y-3 min-h-[280px]"
+          className="px-3 py-4 space-y-3 min-h-[300px]"
           style={{
             backgroundImage:
               'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M30 5 L35 15 L30 12 L25 15Z\' fill=\'%23ffffff05\'/%3E%3C/svg%3E")',
             backgroundColor: '#0B141A',
           }}
         >
-          {/* Bot message */}
+          {/* Bot message - greeting */}
           <div className="flex justify-start">
             <div className="bg-[#1A2236] rounded-2xl rounded-tl-sm px-4 py-2.5 max-w-[85%] border border-white/[0.04]">
               <p className="text-[13px] text-[#F8FAFC] leading-relaxed">
-                Buenos d\u00edas, Carlos. Tu ruta de hoy est\u00e1 lista.
+                Buenos días, Carlos. Tu ruta de hoy está lista.
               </p>
-              <p className="text-[10px] text-[#94A3B8] text-right mt-1">7:02 AM</p>
+              <div className="flex items-center justify-end gap-1 mt-1">
+                <span className="text-[10px] text-[#94A3B8]">7:02 AM</span>
+                <span className="text-[10px] text-[#53BDEB]">✓✓</span>
+              </div>
             </div>
           </div>
 
           {/* Route card */}
           <div className="flex justify-start">
-            <div className="bg-[#1A2236] rounded-2xl rounded-tl-sm px-4 py-3 max-w-[85%] border border-white/[0.04]">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-[#22D3EE] text-sm">{'\uD83D\uDCCD'}</span>
-                <p className="text-[13px] font-semibold text-[#22D3EE]">Ruta optimizada \u2014 5 visitas</p>
+            <div className="bg-[#1A2236] rounded-2xl rounded-tl-sm overflow-hidden max-w-[85%] border border-white/[0.04]">
+              {/* Cyan header area */}
+              <div className="px-4 py-2.5" style={{ background: 'rgba(34,211,238,0.08)' }}>
+                <div className="flex items-center gap-2">
+                  <span className="text-[#22D3EE] text-sm">📍</span>
+                  <p className="text-[13px] font-semibold text-[#22D3EE]">Ruta optimizada — 5 visitas</p>
+                </div>
+                <div className="flex items-center gap-3 mt-1.5 text-[11px] text-[#94A3B8]">
+                  <span>⏱ 47 min en ruta</span>
+                  <span>📊 Score: 94</span>
+                </div>
               </div>
-              <div className="space-y-1.5 text-[12px] text-[#F8FAFC]/80">
-                <p>1. Dr. Ram\u00edrez \u2014 Cl\u00ednica San Fernando <span className="text-[#22D3EE]">(A+)</span></p>
-                <p>2. Dra. Patel \u2014 Hospital Nacional <span className="text-[#22D3EE]">(A+)</span></p>
-                <p>3. Dr. Vega \u2014 Centro M\u00e9dico Paitilla <span className="text-[#94A3B8]">(B)</span></p>
-                <p>4. Dra. Morales \u2014 Consultorios Am\u00e9rica <span className="text-[#22D3EE]">(A)</span></p>
-                <p>5. Dr. Chen \u2014 Cl\u00ednica Pacifica <span className="text-[#94A3B8]">(B)</span></p>
+              <div className="px-4 py-3">
+                <div className="space-y-1.5 text-[12px] text-[#F8FAFC]/80">
+                  <p>1. Dr. Ricardo Arias — Hosp. Santo Tomás <span className="text-[#22D3EE] font-semibold">(A+)</span></p>
+                  <p>2. Dra. Carmen Quintero — Hosp. Nacional <span className="text-[#22D3EE]">(A)</span></p>
+                  <p>3. Dr. Manuel Espinosa — C.M. Paitilla <span className="text-[#94A3B8]">(B+)</span></p>
+                  <p>4. Dr. Alejandro Batista — Hosp. Punta Pacífica <span className="text-[#22D3EE]">(A)</span></p>
+                  <p>5. Dra. Rosa Moreno — Clín. San Fernando <span className="text-[#94A3B8]">(B)</span></p>
+                </div>
+                <div className="flex items-center justify-end gap-1 mt-2">
+                  <span className="text-[10px] text-[#94A3B8]">7:02 AM</span>
+                  <span className="text-[10px] text-[#53BDEB]">✓✓</span>
+                </div>
               </div>
-              <div className="mt-3 pt-2 border-t border-white/[0.06] flex items-center gap-4 text-[11px] text-[#94A3B8]">
-                <span>{'\u23F1'} 47 min en ruta</span>
-                <span>{'\uD83D\uDCCA'} 3 visitas A+</span>
-              </div>
-              <p className="text-[10px] text-[#94A3B8] text-right mt-1">7:02 AM</p>
             </div>
           </div>
 
@@ -185,16 +198,19 @@ function WhatsAppMockup() {
           <div className="flex justify-start">
             <div className="bg-[#1A2236] rounded-2xl rounded-tl-sm px-4 py-2.5 max-w-[85%] border border-white/[0.04]">
               <p className="text-[13px] text-[#F8FAFC] leading-relaxed">
-                {'\uD83D\uDCCB'} <span className="font-semibold text-[#8B5CF6]">Briefing \u2014 Dr. Ram\u00edrez:</span> Prescribe Losart\u00e1n 50mg. \u00daltima visita: 14 d\u00edas. Interes\u00e9 en nueva presentaci\u00f3n pedi\u00e1trica.
+                📋 <span className="font-semibold text-[#8B5CF6]">Briefing — Dr. Ricardo Arias:</span> Prescribe Losartán 50mg. Última visita: 14 días. Interesé en nueva presentación pediátrica.
               </p>
-              <p className="text-[10px] text-[#94A3B8] text-right mt-1">7:03 AM</p>
+              <div className="flex items-center justify-end gap-1 mt-1">
+                <span className="text-[10px] text-[#94A3B8]">7:03 AM</span>
+                <span className="text-[10px] text-[#53BDEB]">✓✓</span>
+              </div>
             </div>
           </div>
 
           {/* User reply */}
           <div className="flex justify-end">
             <div className="bg-[#005C4B] rounded-2xl rounded-tr-sm px-4 py-2.5 max-w-[75%]">
-              <p className="text-[13px] text-white leading-relaxed">Perfecto, salgo en 10 min {'\uD83D\uDC4D'}</p>
+              <p className="text-[13px] text-white leading-relaxed">Perfecto, salgo en 10 min 👍</p>
               <p className="text-[10px] text-white/50 text-right mt-1">7:05 AM</p>
             </div>
           </div>
@@ -246,23 +262,44 @@ export default function HomePage() {
             {/* Left: copy */}
             <div className="text-center lg:text-left">
               <div
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#22D3EE]/20 bg-[#22D3EE]/[0.06] mb-8"
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-8"
+                style={{
+                  border: '1px solid rgba(34,211,238,0.2)',
+                  background: 'rgba(34,211,238,0.06)',
+                }}
               >
-                <span className="w-2 h-2 rounded-full bg-[#22D3EE] animate-pulse" />
-                <span className="text-xs font-medium text-[#22D3EE] tracking-wide uppercase" style={{ fontFamily: 'var(--font-ibm)' }}>
-                  Disponible en Panam\u00e1
+                <span className="w-2 h-2 rounded-full bg-[#34D399] animate-pulse" />
+                <span
+                  className="uppercase"
+                  style={{
+                    fontFamily: 'var(--font-ibm)',
+                    fontWeight: 500,
+                    fontSize: '12px',
+                    letterSpacing: '1.5px',
+                    color: '#22D3EE',
+                  }}
+                >
+                  Disponible en Panamá
                 </span>
               </div>
 
               <h1
-                className="text-5xl md:text-7xl font-extrabold leading-[1.05] tracking-tight text-[#F8FAFC]"
-                style={{ fontFamily: 'var(--font-syne)' }}
+                style={{
+                  fontFamily: 'var(--font-syne)',
+                  fontWeight: 800,
+                  fontSize: 'clamp(3rem, 5.5vw, 4.5rem)',
+                  letterSpacing: '-2px',
+                  lineHeight: 1.05,
+                  color: '#F8FAFC',
+                }}
               >
                 Inteligencia de rutas para equipos comerciales{' '}
                 <span
-                  className="text-transparent bg-clip-text"
                   style={{
                     backgroundImage: 'linear-gradient(135deg, #22D3EE 0%, #8B5CF6 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
                   }}
                 >
                   pharma
@@ -270,33 +307,68 @@ export default function HomePage() {
               </h1>
 
               <p
-                className="mt-6 text-lg md:text-xl text-[#94A3B8] max-w-xl leading-relaxed mx-auto lg:mx-0"
-                style={{ fontFamily: 'var(--font-ibm)' }}
+                className="mt-6 mx-auto lg:mx-0"
+                style={{
+                  fontFamily: 'var(--font-ibm)',
+                  fontWeight: 300,
+                  fontSize: '1.15rem',
+                  lineHeight: 1.7,
+                  color: '#94A3B8',
+                  maxWidth: '520px',
+                }}
               >
-                Vistara optimiza las rutas de tus visitadores m\u00e9dicos con IA, aumentando visitas de alto valor y
-                reduciendo tiempo en tr\u00e1nsito.
+                Vistara optimiza las rutas de tus visitadores médicos con IA, aumentando visitas de alto valor y
+                reduciendo tiempo en tránsito.
               </p>
 
               <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center px-8 py-3.5 rounded-full text-base font-semibold bg-[#22D3EE] text-[#0A0E17] hover:bg-[#22D3EE]/90 transition-all shadow-[0_0_30px_rgba(34,211,238,0.25)] hover:shadow-[0_0_40px_rgba(34,211,238,0.4)]"
-                  style={{ fontFamily: 'var(--font-ibm)' }}
+                  className="inline-flex items-center justify-center px-8 py-3.5 text-base text-[#0A0E17] transition-all"
+                  style={{
+                    fontFamily: 'var(--font-ibm)',
+                    fontWeight: 600,
+                    borderRadius: '14px',
+                    background: '#22D3EE',
+                    boxShadow: '0 0 30px rgba(34,211,238,0.25)',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.boxShadow = '0 0 40px rgba(34,211,238,0.4)'
+                    e.currentTarget.style.transform = 'translateY(-1px)'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.boxShadow = '0 0 30px rgba(34,211,238,0.25)'
+                    e.currentTarget.style.transform = 'translateY(0)'
+                  }}
                 >
                   Solicitar una demo
                 </Link>
                 <Link
                   href="/features"
-                  className="inline-flex items-center justify-center px-8 py-3.5 rounded-full text-base font-semibold border border-white/[0.12] text-[#F8FAFC] hover:border-[#22D3EE]/40 hover:text-[#22D3EE] transition-all bg-white/[0.02]"
-                  style={{ fontFamily: 'var(--font-ibm)' }}
+                  className="inline-flex items-center justify-center px-8 py-3.5 text-base text-[#F8FAFC] transition-all"
+                  style={{
+                    fontFamily: 'var(--font-ibm)',
+                    fontWeight: 600,
+                    borderRadius: '14px',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    background: 'rgba(255,255,255,0.02)',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.borderColor = 'rgba(34,211,238,0.4)'
+                    e.currentTarget.style.color = '#22D3EE'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)'
+                    e.currentTarget.style.color = '#F8FAFC'
+                  }}
                 >
-                  Ver caracter\u00edsticas
+                  Ver características
                 </Link>
               </div>
             </div>
 
             {/* Right: WhatsApp mockup */}
-            <div className="flex justify-center lg:justify-end animate-[fadeInUp_0.8s_ease-out_0.3s_both]">
+            <div className="flex justify-center lg:justify-end" style={{ animation: 'fadeInUp 0.8s ease-out 0.3s both' }}>
               <WhatsAppMockup />
             </div>
           </div>
@@ -318,56 +390,62 @@ export default function HomePage() {
           className="absolute inset-0 -z-10"
           style={{
             background:
-              'linear-gradient(180deg, rgba(17,24,39,0.8) 0%, rgba(26,34,54,0.5) 50%, rgba(17,24,39,0.8) 100%)',
+              'linear-gradient(180deg, rgba(17,24,39,0.6) 0%, rgba(26,34,54,0.3) 50%, rgba(17,24,39,0.6) 100%)',
           }}
         />
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 text-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 text-center">
             {/* Stat 1 */}
-            <div ref={stat1.ref}>
+            <div ref={stat1.ref} className="py-6 md:py-0">
               <p
-                className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text"
+                className="gradient-text"
                 style={{
                   fontFamily: 'var(--font-syne)',
-                  backgroundImage: 'linear-gradient(135deg, #22D3EE 0%, #8B5CF6 100%)',
+                  fontWeight: 800,
+                  fontSize: '3.5rem',
+                  lineHeight: 1,
                 }}
               >
                 {stat1.display}
               </p>
-              <p className="mt-2 text-base text-[#94A3B8]" style={{ fontFamily: 'var(--font-ibm)' }}>
+              <p className="mt-2 text-base" style={{ fontFamily: 'var(--font-ibm)', fontWeight: 300, color: '#94A3B8' }}>
                 visitas A+ por semana
               </p>
             </div>
 
             {/* Stat 2 */}
-            <div ref={stat2.ref} className="md:border-x md:border-white/[0.06]">
+            <div ref={stat2.ref} className="py-6 md:py-0 md:border-x md:border-white/[0.06]">
               <p
-                className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text"
+                className="gradient-text"
                 style={{
                   fontFamily: 'var(--font-syne)',
-                  backgroundImage: 'linear-gradient(135deg, #22D3EE 0%, #8B5CF6 100%)',
+                  fontWeight: 800,
+                  fontSize: '3.5rem',
+                  lineHeight: 1,
                 }}
               >
                 {stat2.display}
               </p>
-              <p className="mt-2 text-base text-[#94A3B8]" style={{ fontFamily: 'var(--font-ibm)' }}>
+              <p className="mt-2 text-base" style={{ fontFamily: 'var(--font-ibm)', fontWeight: 300, color: '#94A3B8' }}>
                 tiempo de ruta diario
               </p>
             </div>
 
             {/* Stat 3 */}
-            <div ref={stat3.ref}>
+            <div ref={stat3.ref} className="py-6 md:py-0">
               <p
-                className="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text"
+                className="gradient-text"
                 style={{
                   fontFamily: 'var(--font-syne)',
-                  backgroundImage: 'linear-gradient(135deg, #22D3EE 0%, #8B5CF6 100%)',
+                  fontWeight: 800,
+                  fontSize: '3.5rem',
+                  lineHeight: 1,
                 }}
               >
                 {stat3.display}
               </p>
-              <p className="mt-2 text-base text-[#94A3B8]" style={{ fontFamily: 'var(--font-ibm)' }}>
-                adopci\u00f3n por representantes
+              <p className="mt-2 text-base" style={{ fontFamily: 'var(--font-ibm)', fontWeight: 300, color: '#94A3B8' }}>
+                adopción por representantes
               </p>
             </div>
           </div>
@@ -389,20 +467,35 @@ export default function HomePage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-20">
-            <p className="text-sm font-semibold tracking-widest uppercase text-[#22D3EE] mb-4" style={{ fontFamily: 'var(--font-ibm)' }}>
-              Caracter\u00edsticas
+            <p
+              className="section-tag text-sm tracking-widest uppercase mb-4 justify-center"
+              style={{ fontFamily: 'var(--font-ibm)', fontWeight: 500, color: '#22D3EE', fontSize: '13px', letterSpacing: '1.5px' }}
+            >
+              Características
             </p>
             <h2
-              className="text-4xl md:text-5xl font-extrabold text-[#F8FAFC] tracking-tight"
-              style={{ fontFamily: 'var(--font-syne)' }}
+              style={{
+                fontFamily: 'var(--font-syne)',
+                fontWeight: 800,
+                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                color: '#F8FAFC',
+                letterSpacing: '-1px',
+              }}
             >
               Todo lo que tu equipo necesita,{' '}
-              <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(135deg, #22D3EE, #8B5CF6)' }}>
+              <span
+                style={{
+                  backgroundImage: 'linear-gradient(135deg, #22D3EE, #8B5CF6)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
                 en un solo lugar
               </span>
             </h2>
-            <p className="mt-5 text-lg text-[#94A3B8]" style={{ fontFamily: 'var(--font-ibm)' }}>
-              Desde la planificaci\u00f3n inteligente de rutas hasta el cumplimiento regulatorio, Vistara cubre cada aspecto de la operaci\u00f3n de campo farmac\u00e9utica.
+            <p className="mt-5" style={{ fontFamily: 'var(--font-ibm)', fontWeight: 300, fontSize: '1.05rem', color: '#94A3B8', lineHeight: 1.7 }}>
+              Desde la planificación inteligente de rutas hasta el cumplimiento regulatorio, Vistara cubre cada aspecto de la operación de campo farmacéutica.
             </p>
           </div>
 
@@ -410,21 +503,74 @@ export default function HomePage() {
             {features.map((feature, i) => (
               <div
                 key={i}
-                className="group relative rounded-2xl p-7 border border-white/[0.06] bg-[#111827]/70 backdrop-blur-md hover:border-[#22D3EE]/20 transition-all duration-300 hover:shadow-[0_0_40px_rgba(34,211,238,0.06)]"
+                className="group relative p-7 transition-all duration-300"
+                style={{
+                  borderRadius: '16px',
+                  background: '#111827',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                }}
+                onMouseEnter={e => {
+                  const el = e.currentTarget
+                  el.style.borderColor = 'rgba(34,211,238,0.15)'
+                  el.style.transform = 'translateY(-4px)'
+                  el.style.boxShadow = '0 20px 40px rgba(0,0,0,0.3), 0 0 40px rgba(34,211,238,0.06)'
+                  const line = el.querySelector('[data-gradient-line]') as HTMLElement
+                  if (line) line.style.opacity = '1'
+                }}
+                onMouseLeave={e => {
+                  const el = e.currentTarget
+                  el.style.borderColor = 'rgba(255,255,255,0.06)'
+                  el.style.transform = 'translateY(0)'
+                  el.style.boxShadow = 'none'
+                  const line = el.querySelector('[data-gradient-line]') as HTMLElement
+                  if (line) line.style.opacity = '0'
+                }}
               >
-                {/* Hover glow */}
-                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(34,211,238,0.04) 0%, transparent 70%)' }} />
+                {/* Top gradient line on hover */}
+                <div
+                  data-gradient-line
+                  className="absolute top-0 left-0 right-0 h-[2px] transition-opacity duration-300"
+                  style={{
+                    opacity: 0,
+                    background: 'linear-gradient(90deg, #22D3EE, #8B5CF6)',
+                    borderRadius: '16px 16px 0 0',
+                  }}
+                />
 
-                <div className="text-3xl mb-4">{feature.icon}</div>
+                {/* Icon box */}
+                <div
+                  className="flex items-center justify-center mb-5"
+                  style={{
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '12px',
+                    background: 'rgba(34,211,238,0.08)',
+                    border: '1px solid rgba(34,211,238,0.15)',
+                    fontSize: '22px',
+                  }}
+                >
+                  {feature.icon}
+                </div>
+
                 <h3
-                  className="text-lg font-bold text-[#F8FAFC] mb-2"
-                  style={{ fontFamily: 'var(--font-syne)' }}
+                  className="mb-2"
+                  style={{
+                    fontFamily: 'var(--font-syne)',
+                    fontWeight: 700,
+                    fontSize: '1rem',
+                    color: '#F8FAFC',
+                  }}
                 >
                   {feature.title}
                 </h3>
                 <p
-                  className="text-sm text-[#94A3B8] leading-relaxed"
-                  style={{ fontFamily: 'var(--font-ibm)' }}
+                  style={{
+                    fontFamily: 'var(--font-ibm)',
+                    fontWeight: 300,
+                    fontSize: '0.85rem',
+                    color: '#94A3B8',
+                    lineHeight: 1.7,
+                  }}
                 >
                   {feature.description}
                 </p>
@@ -437,20 +583,31 @@ export default function HomePage() {
       {/* ============================================================ */}
       {/*  SOCIAL PROOF                                                */}
       {/* ============================================================ */}
-      <section className="py-20 border-y border-white/[0.06] bg-[#111827]/30">
+      <section className="py-20 border-y border-white/[0.06]" style={{ background: 'rgba(17,24,39,0.3)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p
-            className="text-center text-sm font-medium uppercase tracking-widest text-[#94A3B8] mb-12"
-            style={{ fontFamily: 'var(--font-ibm)' }}
+            className="text-center uppercase tracking-widest mb-12"
+            style={{ fontFamily: 'var(--font-ibm)', fontWeight: 400, fontSize: '12px', color: '#94A3B8', letterSpacing: '2px' }}
           >
-            Empresas que conf\u00edan en Vistara
+            Empresas que confían en Vistara
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center">
             {companies.map((name) => (
               <span
                 key={name}
-                className="text-lg md:text-xl font-bold text-[#94A3B8]/30 hover:text-[#94A3B8]/50 transition-colors select-none whitespace-nowrap"
-                style={{ fontFamily: 'var(--font-syne)' }}
+                className="transition-colors duration-300 select-none whitespace-nowrap cursor-default"
+                style={{
+                  fontFamily: 'var(--font-syne)',
+                  fontWeight: 700,
+                  fontSize: '1.1rem',
+                  color: 'rgba(255,255,255,0.12)',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.color = 'rgba(255,255,255,0.3)'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.color = 'rgba(255,255,255,0.12)'
+                }}
               >
                 {name}
               </span>
@@ -474,12 +631,20 @@ export default function HomePage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-20">
-            <p className="text-sm font-semibold tracking-widest uppercase text-[#8B5CF6] mb-4" style={{ fontFamily: 'var(--font-ibm)' }}>
+            <p
+              className="section-tag text-sm tracking-widest uppercase mb-4 justify-center"
+              style={{ fontFamily: 'var(--font-ibm)', fontWeight: 500, color: '#8B5CF6', fontSize: '13px', letterSpacing: '1.5px' }}
+            >
               Testimonios
             </p>
             <h2
-              className="text-4xl md:text-5xl font-extrabold text-[#F8FAFC] tracking-tight"
-              style={{ fontFamily: 'var(--font-syne)' }}
+              style={{
+                fontFamily: 'var(--font-syne)',
+                fontWeight: 800,
+                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                color: '#F8FAFC',
+                letterSpacing: '-1px',
+              }}
             >
               Lo que dicen nuestros clientes
             </h2>
@@ -489,28 +654,44 @@ export default function HomePage() {
             {testimonials.map((t, i) => (
               <div
                 key={i}
-                className="relative rounded-2xl p-8 border border-white/[0.06] bg-[#111827]/70 backdrop-blur-md"
+                className="relative p-8"
+                style={{
+                  borderRadius: '16px',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  background: 'rgba(17,24,39,0.7)',
+                  backdropFilter: 'blur(12px)',
+                }}
               >
                 {/* Quote mark */}
                 <div
-                  className="text-6xl font-bold leading-none mb-4 text-transparent bg-clip-text"
+                  className="gradient-text leading-none mb-4"
                   style={{
                     fontFamily: 'var(--font-syne)',
-                    backgroundImage: 'linear-gradient(135deg, #22D3EE 0%, #8B5CF6 100%)',
+                    fontWeight: 800,
+                    fontSize: '3.5rem',
                   }}
                 >
                   {'\u201C'}
                 </div>
                 <p
-                  className="text-[15px] text-[#F8FAFC]/90 leading-relaxed mb-8"
-                  style={{ fontFamily: 'var(--font-ibm)' }}
+                  className="mb-8"
+                  style={{
+                    fontFamily: 'var(--font-ibm)',
+                    fontWeight: 300,
+                    fontSize: '14px',
+                    color: 'rgba(255,255,255,0.85)',
+                    lineHeight: 1.7,
+                  }}
                 >
                   {t.quote}
                 </p>
                 <div className="flex items-center gap-3 mt-auto">
                   <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-[#0A0E17]"
+                    className="flex items-center justify-center text-sm font-bold text-[#0A0E17]"
                     style={{
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '50%',
                       backgroundImage: 'linear-gradient(135deg, #22D3EE, #8B5CF6)',
                     }}
                   >
@@ -518,11 +699,11 @@ export default function HomePage() {
                     {t.name.split(' ').pop()?.charAt(0)}
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-[#F8FAFC]" style={{ fontFamily: 'var(--font-syne)' }}>
+                    <p style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '14px', color: '#F8FAFC' }}>
                       {t.name}
                     </p>
-                    <p className="text-xs text-[#94A3B8]" style={{ fontFamily: 'var(--font-ibm)' }}>
-                      {t.role} &middot; {t.company}
+                    <p style={{ fontFamily: 'var(--font-ibm)', fontWeight: 300, fontSize: '12px', color: '#94A3B8' }}>
+                      {t.role} · {t.company}
                     </p>
                   </div>
                 </div>
@@ -550,54 +731,76 @@ export default function HomePage() {
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2
-            className="text-4xl md:text-6xl font-extrabold text-[#F8FAFC] tracking-tight leading-tight"
-            style={{ fontFamily: 'var(--font-syne)' }}
+            style={{
+              fontFamily: 'var(--font-syne)',
+              fontWeight: 800,
+              fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+              color: '#F8FAFC',
+              letterSpacing: '-1px',
+              lineHeight: 1.1,
+            }}
           >
             Transforma las rutas de tu equipo{' '}
             <span
-              className="text-transparent bg-clip-text"
-              style={{ backgroundImage: 'linear-gradient(135deg, #22D3EE, #8B5CF6)' }}
+              style={{
+                backgroundImage: 'linear-gradient(135deg, #22D3EE, #8B5CF6)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
             >
               comercial
             </span>
           </h2>
-          <p className="mt-6 text-lg md:text-xl text-[#94A3B8] max-w-2xl mx-auto" style={{ fontFamily: 'var(--font-ibm)' }}>
-            \u00danete a las empresas farmac\u00e9uticas en Panam\u00e1 que ya est\u00e1n maximizando cada d\u00eda de campo con inteligencia artificial.
+          <p className="mt-6 max-w-2xl mx-auto" style={{ fontFamily: 'var(--font-ibm)', fontWeight: 300, fontSize: '1.15rem', color: '#94A3B8', lineHeight: 1.7 }}>
+            Únete a las empresas farmacéuticas en Panamá que ya están maximizando cada día de campo con inteligencia artificial.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center px-10 py-4 rounded-full text-base font-semibold bg-[#22D3EE] text-[#0A0E17] hover:bg-[#22D3EE]/90 transition-all shadow-[0_0_30px_rgba(34,211,238,0.25)] hover:shadow-[0_0_50px_rgba(34,211,238,0.4)]"
-              style={{ fontFamily: 'var(--font-ibm)' }}
+              className="inline-flex items-center justify-center px-10 py-4 text-base text-[#0A0E17] transition-all"
+              style={{
+                fontFamily: 'var(--font-ibm)',
+                fontWeight: 600,
+                borderRadius: '14px',
+                background: '#22D3EE',
+                boxShadow: '0 0 30px rgba(34,211,238,0.25)',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.boxShadow = '0 0 50px rgba(34,211,238,0.4)'
+                e.currentTarget.style.transform = 'translateY(-1px)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.boxShadow = '0 0 30px rgba(34,211,238,0.25)'
+                e.currentTarget.style.transform = 'translateY(0)'
+              }}
             >
               Solicitar una demo
             </Link>
             <Link
               href="/pricing"
-              className="inline-flex items-center justify-center px-10 py-4 rounded-full text-base font-semibold border border-white/[0.12] text-[#F8FAFC] hover:border-[#8B5CF6]/40 hover:text-[#8B5CF6] transition-all bg-white/[0.02]"
-              style={{ fontFamily: 'var(--font-ibm)' }}
+              className="inline-flex items-center justify-center px-10 py-4 text-base text-[#F8FAFC] transition-all"
+              style={{
+                fontFamily: 'var(--font-ibm)',
+                fontWeight: 600,
+                borderRadius: '14px',
+                border: '1px solid rgba(255,255,255,0.12)',
+                background: 'rgba(255,255,255,0.02)',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = 'rgba(139,92,246,0.4)'
+                e.currentTarget.style.color = '#8B5CF6'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)'
+                e.currentTarget.style.color = '#F8FAFC'
+              }}
             >
               Ver precios
             </Link>
           </div>
         </div>
       </section>
-
-      {/* ============================================================ */}
-      {/*  CSS Keyframes for animations                                */}
-      {/* ============================================================ */}
-      <style jsx global>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </>
   )
 }
