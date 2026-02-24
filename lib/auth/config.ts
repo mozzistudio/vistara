@@ -11,17 +11,22 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null
+        try {
+          if (!credentials?.email || !credentials?.password) return null
 
-        const user = await getUserByEmail(credentials.email)
-        if (!user || user.password !== credentials.password) return null
+          const user = await getUserByEmail(credentials.email)
+          if (!user || user.password !== credentials.password) return null
 
-        return {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-          territory: user.territory,
+          return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            territory: user.territory,
+          }
+        } catch (err) {
+          console.error('Auth error:', err instanceof Error ? err.message : err)
+          return null
         }
       },
     }),

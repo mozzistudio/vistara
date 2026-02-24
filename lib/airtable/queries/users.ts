@@ -37,15 +37,19 @@ export async function getAllUsers(): Promise<User[]> {
 }
 
 export async function getUserByEmail(email: string): Promise<User | null> {
-  const records = await tables.users
-    .select({
-      filterByFormula: `{Email} = '${email}'`,
-      maxRecords: 1,
-    })
-    .all()
+  try {
+    const records = await tables.users
+      .select({
+        filterByFormula: `{Email} = '${email}'`,
+        maxRecords: 1,
+      })
+      .all()
 
-  if (records.length === 0) return null
-  return mapRecord(records[0])
+    if (records.length === 0) return null
+    return mapRecord(records[0])
+  } catch {
+    return null
+  }
 }
 
 export async function getUserById(id: string): Promise<User | null> {

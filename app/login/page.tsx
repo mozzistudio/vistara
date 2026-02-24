@@ -50,12 +50,13 @@ export default function LoginPage() {
       const result = await signIn('credentials', {
         email,
         password,
-        redirect: true,
-        callbackUrl: '/app/rep',
+        redirect: false,
       })
 
       if (result?.error) {
         setError('Credenciales inv\u00e1lidas. Intenta de nuevo.')
+      } else if (result?.ok) {
+        window.location.href = '/app/rep'
       }
     } catch {
       setError('Ocurri\u00f3 un error. Intenta de nuevo.')
