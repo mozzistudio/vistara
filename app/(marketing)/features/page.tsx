@@ -24,7 +24,8 @@ const features = [
       'Algoritmo adaptativo que aprende de patrones de tráfico panameños',
       'Consideración de ventanas de atención y horarios preferidos de cada médico',
     ],
-    gradient: 'from-[#22D3EE]/20 to-transparent',
+    color: '#22D3EE',
+    stat: { value: '-41%', label: 'tiempo en ruta' },
   },
   {
     id: 'whatsapp-chat',
@@ -38,11 +39,12 @@ const features = [
       'Interactúa con Vistara de la forma más natural posible: a través de una interfaz tipo WhatsApp. Recibe tu ruta optimizada cada mañana, registra visitas con un mensaje de voz, consulta información de médicos y reporta incidencias sin salir de la conversación.',
     bullets: [
       'Interfaz conversacional familiar tipo WhatsApp para adopción inmediata',
-      'Comandos en lenguaje natural: "muéstrame mi ruta de hoy" o "registra visita con Dr. Pérez"',
+      'Comandos en lenguaje natural: "muéstrame mi ruta de hoy"',
       'Push automático de ruta optimizada cada mañana a las 7:00 AM',
       'Registro de visitas por texto o nota de voz con transcripción automática',
     ],
-    gradient: 'from-[#8B5CF6]/20 to-transparent',
+    color: '#8B5CF6',
+    stat: { value: '98%', label: 'adopción' },
   },
   {
     id: 'smart-briefings',
@@ -52,18 +54,18 @@ const features = [
         <polyline points="14 2 14 8 20 8" />
         <line x1="16" y1="13" x2="8" y2="13" />
         <line x1="16" y1="17" x2="8" y2="17" />
-        <polyline points="10 9 9 9 8 9" />
       </svg>
     ),
     title: 'Briefings Inteligentes',
     description:
-      'Antes de cada visita, recibe un resumen generado por IA con todo lo que necesitas saber. Historial de interacciones, productos discutidos, preferencias del médico, puntos de conversación recomendados y alertas relevantes para maximizar el impacto de cada encuentro.',
+      'Antes de cada visita, recibe un resumen generado por IA con todo lo que necesitas saber. Historial de interacciones, productos discutidos, preferencias del médico, puntos de conversación recomendados y alertas relevantes.',
     bullets: [
       'Historial completo de visitas anteriores y temas tratados',
       'Preferencias del HCP: horarios, productos de interés, estilo de comunicación',
       'Puntos de conversación sugeridos basados en datos recientes del mercado',
     ],
-    gradient: 'from-[#22D3EE]/20 to-transparent',
+    color: '#22D3EE',
+    stat: { value: '+45%', label: 'calidad de visita' },
   },
   {
     id: 'dynamic-rerouting',
@@ -76,14 +78,15 @@ const features = [
     ),
     title: 'Re-ruteo Dinámico',
     description:
-      'Cuando un médico cancela, sale antes del consultorio o surge un imprevisto, Vistara recalcula tu ruta en segundos. El sistema identifica alternativas cercanas disponibles para que no pierdas productividad y mantengas tu cobertura al máximo.',
+      'Cuando un médico cancela, sale antes del consultorio o surge un imprevisto, Vistara recalcula tu ruta en segundos. El sistema identifica alternativas cercanas disponibles para que no pierdas productividad.',
     bullets: [
       'Recálculo de ruta en menos de 3 segundos ante cancelaciones',
       'Sugerencias automáticas de HCPs alternativos cercanos y disponibles',
       'Cero pérdida de productividad por imprevistos en campo',
       'Notificaciones proactivas cuando se detectan cambios en disponibilidad',
     ],
-    gradient: 'from-[#8B5CF6]/20 to-transparent',
+    color: '#8B5CF6',
+    stat: { value: '<3s', label: 'recálculo' },
   },
   {
     id: 'crm-sync',
@@ -97,13 +100,14 @@ const features = [
     ),
     title: 'Sincronización CRM',
     description:
-      'Conecta Vistara con tu CRM existente (Veeva, Salesforce, IQVIA u otros) mediante sincronización bidireccional en tiempo real. Cada visita registrada en Vistara se refleja automáticamente en tu CRM, eliminando la doble captura de datos y garantizando la integridad de la información.',
+      'Conecta Vistara con tu CRM existente (Veeva, Salesforce, IQVIA u otros) mediante sincronización bidireccional en tiempo real. Cada visita registrada se refleja automáticamente, eliminando la doble captura de datos.',
     bullets: [
       'Sincronización bidireccional con Veeva, Salesforce e IQVIA',
       'Registro automático de visitas sin entrada manual duplicada',
       'Actualización en tiempo real de datos de contacto y actividad',
     ],
-    gradient: 'from-[#22D3EE]/20 to-transparent',
+    color: '#22D3EE',
+    stat: { value: '0', label: 'entrada manual' },
   },
   {
     id: 'compliance',
@@ -115,14 +119,15 @@ const features = [
     ),
     title: 'Cumplimiento Regulatorio',
     description:
-      'El cumplimiento regulatorio farmacéutico está integrado en cada aspecto de Vistara. El sistema aplica automáticamente las reglas de frecuencia de visita, genera trails de auditoría completos y asegura que cada interacción con profesionales de salud cumpla con las normativas de Panamá y la región centroamericana.',
+      'El cumplimiento regulatorio farmacéutico está integrado en cada aspecto de Vistara. El sistema aplica automáticamente las reglas de frecuencia de visita, genera trails de auditoría completos y asegura que cada interacción cumpla con las normativas.',
     bullets: [
       'Reglas de frecuencia de visita configurables por producto y segmento',
       'Trail de auditoría completo para cada interacción registrada',
       'Alertas de cumplimiento en tiempo real antes de cada visita',
       'Reportes automatizados para inspecciones regulatorias',
     ],
-    gradient: 'from-[#8B5CF6]/20 to-transparent',
+    color: '#8B5CF6',
+    stat: { value: '100%', label: 'compliance' },
   },
 ]
 
@@ -136,76 +141,114 @@ export default function FeaturesPage() {
         </span>
         <h1
           className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#F8FAFC] mb-6"
-          style={{ fontFamily: 'var(--font-syne)' }}
+          style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, letterSpacing: '-1px' }}
         >
-          Características
+          Seis módulos,{' '}
+          <span className="gradient-text">un objetivo</span>
         </h1>
         <p className="text-lg sm:text-xl text-[#94A3B8] max-w-3xl mx-auto leading-relaxed">
           Todo lo que tu equipo de campo necesita para visitar más médicos, en menos
-          tiempo y con mayor impacto. Seis módulos diseñados específicamente para la
-          industria farmacéutica en Panamá.
+          tiempo y con mayor impacto. Diseñado específicamente para pharma.
         </p>
       </section>
 
       {/* Feature sections */}
       {features.map((feature, index) => {
         const isReversed = index % 2 !== 0
-        const bgClass = index % 2 === 0 ? 'bg-[#0A0E17]' : 'bg-[#111827]/50'
+        const isAlt = index % 2 !== 0
 
         return (
-          <section key={feature.id} className={`${bgClass} py-24`}>
+          <section
+            key={feature.id}
+            className="py-20 lg:py-24"
+            style={{ background: isAlt ? 'rgba(17,24,39,0.3)' : 'transparent' }}
+          >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div
-                className={`grid lg:grid-cols-2 gap-16 items-center ${
-                  isReversed ? 'lg:direction-rtl' : ''
-                }`}
-              >
+              <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                 {/* Text */}
                 <div className={isReversed ? 'lg:order-2' : 'lg:order-1'}>
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#1A2236] border border-white/[0.06] mb-6">
+                  <div
+                    className="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6"
+                    style={{
+                      background: `${feature.color}08`,
+                      border: `1px solid ${feature.color}18`,
+                    }}
+                  >
                     {feature.icon}
                   </div>
 
                   <h2
-                    className="text-3xl sm:text-4xl font-bold text-[#F8FAFC] mb-6"
-                    style={{ fontFamily: 'var(--font-syne)' }}
+                    className="text-3xl sm:text-4xl font-bold text-[#F8FAFC] mb-5"
+                    style={{ fontFamily: 'var(--font-syne)', fontWeight: 800 }}
                   >
                     {feature.title}
                   </h2>
 
-                  <p className="text-[#94A3B8] text-lg leading-relaxed mb-8">
+                  <p className="text-[#94A3B8] text-base lg:text-lg leading-relaxed mb-8">
                     {feature.description}
                   </p>
 
-                  <ul className="space-y-4">
+                  <ul className="space-y-3.5">
                     {feature.bullets.map((bullet, i) => (
                       <li key={i} className="flex items-start gap-3">
                         <svg
-                          className="w-5 h-5 text-[#22D3EE] mt-0.5 shrink-0"
+                          className="w-4 h-4 mt-1 shrink-0"
+                          style={{ color: feature.color }}
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
-                          strokeWidth="2"
+                          strokeWidth="2.5"
                         >
                           <polyline points="20 6 9 17 4 12" />
                         </svg>
-                        <span className="text-[#F8FAFC]/80 text-base">{bullet}</span>
+                        <span className="text-[#F8FAFC]/80 text-sm lg:text-base">{bullet}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                {/* Visual placeholder */}
+                {/* Visual */}
                 <div className={isReversed ? 'lg:order-1' : 'lg:order-2'}>
                   <div
-                    className={`relative rounded-3xl border border-white/[0.06] bg-gradient-to-br ${feature.gradient} bg-[#1A2236]/50 p-8 aspect-[4/3] flex items-center justify-center`}
+                    className="relative rounded-2xl aspect-[4/3] flex items-center justify-center overflow-hidden"
+                    style={{
+                      background: `linear-gradient(135deg, ${feature.color}06 0%, transparent 60%), #0F1629`,
+                      border: `1px solid ${feature.color}12`,
+                    }}
                   >
-                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/[0.02] to-transparent" />
+                    {/* Decorative grid */}
+                    <div
+                      className="absolute inset-0 opacity-[0.03]"
+                      style={{
+                        backgroundImage:
+                          'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+                        backgroundSize: '32px 32px',
+                      }}
+                    />
+                    {/* Glow */}
+                    <div
+                      className="absolute w-48 h-48 rounded-full blur-3xl"
+                      style={{ background: `${feature.color}08` }}
+                    />
                     <div className="relative text-center">
-                      <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-[#0A0E17]/60 border border-white/[0.06] mb-4">
+                      <div
+                        className="inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-4"
+                        style={{
+                          background: `${feature.color}08`,
+                          border: `1px solid ${feature.color}15`,
+                        }}
+                      >
                         {feature.icon}
                       </div>
-                      <p className="text-[#94A3B8] text-sm">Vista previa interactiva</p>
+                      <div className="mt-2">
+                        <p
+                          className="text-3xl font-bold"
+                          style={{ fontFamily: 'var(--font-syne)', fontWeight: 800, color: feature.color }}
+                        >
+                          {feature.stat.value}
+                        </p>
+                        <p className="text-xs text-[#64748B] mt-1">{feature.stat.label}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -216,28 +259,39 @@ export default function FeaturesPage() {
       })}
 
       {/* CTA */}
-      <section className="py-24 bg-[#0A0E17]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section
+        className="py-24 relative overflow-hidden"
+        style={{
+          background: `
+            radial-gradient(ellipse 60% 50% at 30% 50%, rgba(34,211,238,0.06) 0%, transparent 60%),
+            radial-gradient(ellipse 60% 50% at 70% 50%, rgba(139,92,246,0.06) 0%, transparent 60%)
+          `,
+        }}
+      >
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2
-            className="text-3xl sm:text-4xl font-bold text-[#F8FAFC] mb-6"
-            style={{ fontFamily: 'var(--font-syne)' }}
+            className="text-3xl sm:text-4xl font-bold text-[#F8FAFC] mb-5"
+            style={{ fontFamily: 'var(--font-syne)', fontWeight: 800 }}
           >
-            Experimenta todas las características en acción
+            Experimenta todas las características
           </h2>
-          <p className="text-lg text-[#94A3B8] mb-10 max-w-2xl mx-auto">
-            Agenda una demo personalizada y descubre cómo Vistara puede transformar la
-            productividad de tu equipo comercial en Panamá.
+          <p className="text-lg text-[#94A3B8] mb-10 max-w-xl mx-auto">
+            Agenda una demo personalizada y descubre cómo Vistara puede transformar la productividad de tu equipo.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-[#22D3EE] text-[#0A0E17] font-semibold text-base hover:bg-[#22D3EE]/90 transition-all shadow-[0_0_20px_rgba(34,211,238,0.3)]"
+              className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-[#0A0E17] font-semibold text-base hover:brightness-110 transition-all"
+              style={{
+                background: 'linear-gradient(135deg, #22D3EE 0%, #06B6D4 100%)',
+                boxShadow: '0 0 24px rgba(34,211,238,0.2), 0 4px 12px rgba(0,0,0,0.3)',
+              }}
             >
               Solicitar demo gratuita
             </Link>
             <Link
               href="/pricing"
-              className="inline-flex items-center justify-center px-8 py-3.5 rounded-full border border-white/[0.06] text-[#F8FAFC] font-medium text-base hover:border-[#22D3EE]/40 hover:text-[#22D3EE] transition-all"
+              className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl border border-white/[0.08] text-[#F8FAFC] font-medium text-base hover:border-[#22D3EE]/30 hover:text-[#22D3EE] transition-all"
             >
               Ver precios
             </Link>

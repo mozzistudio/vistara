@@ -41,44 +41,110 @@ function useCounter(target: number, suffix = '', prefix = '', duration = 2000) {
 }
 
 /* ------------------------------------------------------------------ */
+/*  SVG Icon Components                                                */
+/* ------------------------------------------------------------------ */
+function RouteIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="6" cy="19" r="3" />
+      <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" />
+      <circle cx="18" cy="5" r="3" />
+    </svg>
+  )
+}
+
+function ChatBubbleIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      <path d="M8 10h.01" />
+      <path d="M12 10h.01" />
+      <path d="M16 10h.01" />
+    </svg>
+  )
+}
+
+function ClipboardIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+      <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+      <path d="M9 12h6" />
+      <path d="M9 16h6" />
+    </svg>
+  )
+}
+
+function RefreshCycleIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21.5 2v6h-6" />
+      <path d="M2.5 22v-6h6" />
+      <path d="M2.5 11.5a10 10 0 0 1 18.37-4.5" />
+      <path d="M21.5 12.5a10 10 0 0 1-18.37 4.5" />
+    </svg>
+  )
+}
+
+function SyncArrowsIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17 1l4 4-4 4" />
+      <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+      <path d="M7 23l-4-4 4-4" />
+      <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+    </svg>
+  )
+}
+
+function ShieldCheckIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <path d="M9 12l2 2 4-4" />
+    </svg>
+  )
+}
+
+/* ------------------------------------------------------------------ */
 /*  Data                                                               */
 /* ------------------------------------------------------------------ */
 const features = [
   {
-    icon: '🗺️',
-    title: 'Optimización IA de Rutas',
+    icon: <RouteIcon />,
+    title: 'Optimizacion IA de Rutas',
     description:
-      'Algoritmos de enrutamiento inteligente que priorizan HCPs de alto valor, minimizando kilómetros recorridos y maximizando el tiempo cara-a-cara con médicos clave.',
+      'Algoritmos de enrutamiento inteligente que priorizan HCPs de alto valor, minimizando kilometros recorridos y maximizando el tiempo cara-a-cara con medicos clave.',
   },
   {
-    icon: '💬',
+    icon: <ChatBubbleIcon />,
     title: 'Chat WhatsApp Integrado',
     description:
-      'Tus representantes reciben la ruta del día, alertas de re-ruteo y briefings directamente en WhatsApp. Sin apps adicionales, sin fricción.',
+      'Tus representantes reciben la ruta del dia, alertas de re-ruteo y briefings directamente en WhatsApp. Sin apps adicionales, sin friccion.',
   },
   {
-    icon: '📋',
+    icon: <ClipboardIcon />,
     title: 'Briefings Inteligentes',
     description:
-      'Antes de cada visita, el rep recibe un resumen con historial de interacciones, productos de interés y puntos clave de conversación generados por IA.',
+      'Antes de cada visita, el rep recibe un resumen con historial de interacciones, productos de interes y puntos clave de conversacion generados por IA.',
   },
   {
-    icon: '🔄',
-    title: 'Re-ruteo Dinámico',
+    icon: <RefreshCycleIcon />,
+    title: 'Re-ruteo Dinamico',
     description:
-      'Cancelaciones, tráfico o emergencias? Vistara recalcula la ruta en tiempo real y notifica al visitador con la mejor alternativa disponible.',
+      'Cancelaciones, trafico o emergencias? Vistara recalcula la ruta en tiempo real y notifica al visitador con la mejor alternativa disponible.',
   },
   {
-    icon: '🔗',
-    title: 'Sincronización CRM',
+    icon: <SyncArrowsIcon />,
+    title: 'Sincronizacion CRM',
     description:
-      'Integración bidireccional con Veeva, Salesforce y IQVIA. Las visitas se registran automáticamente con geolocalización y duración verificada.',
+      'Integracion bidireccional con Veeva, Salesforce y IQVIA. Las visitas se registran automaticamente con geolocalizacion y duracion verificada.',
   },
   {
-    icon: '🛡️',
+    icon: <ShieldCheckIcon />,
     title: 'Cumplimiento Regulatorio',
     description:
-      'Frecuencias de visita, restricciones de zona y límites regulatorios de Panamá integrados en cada ruta. Auditoría completa en un clic.',
+      'Frecuencias de visita, restricciones de zona y limites regulatorios de Panama integrados en cada ruta. Auditoria completa en un clic.',
   },
 ]
 
@@ -94,23 +160,23 @@ const companies = [
 const testimonials = [
   {
     quote:
-      'Desde que implementamos Vistara, nuestros visitadores cubren un 30% más de médicos clase A por semana. La diferencia en productividad es impresionante.',
-    name: 'Dra. Carolina Méndez',
+      'Desde que implementamos Vistara, nuestros visitadores cubren un 30% mas de medicos clase A por semana. La diferencia en productividad es impresionante.',
+    name: 'Dra. Carolina Mendez',
     role: 'Directora Comercial',
     company: 'BioGenesis Pharma',
   },
   {
     quote:
-      'El re-ruteo dinámico nos ha salvado incontables visitas perdidas. Cuando un médico cancela, el sistema ya tiene la alternativa lista en WhatsApp.',
+      'El re-ruteo dinamico nos ha salvado incontables visitas perdidas. Cuando un medico cancela, el sistema ya tiene la alternativa lista en WhatsApp.',
     name: 'Roberto Castillo',
     role: 'Gerente de Fuerza de Ventas',
     company: 'MediLatam',
   },
   {
     quote:
-      'Lo que más valoro es que los reps lo adoptaron sin resistencia. Llega por WhatsApp, es intuitivo, y los briefings pre-visita les dan una confianza enorme.',
+      'Lo que mas valoro es que los reps lo adoptaron sin resistencia. Llega por WhatsApp, es intuitivo, y los briefings pre-visita les dan una confianza enorme.',
     name: 'Lic. Valeria Ng',
-    role: 'Representante Médica Senior',
+    role: 'Representante Medica Senior',
     company: 'Isthmus Therapeutics',
   },
 ]
@@ -137,8 +203,8 @@ function WhatsAppMockup() {
             V
           </div>
           <div className="flex-1">
-            <p className="text-sm font-semibold text-white leading-tight">Vistara AI 🤖</p>
-            <p className="text-[11px] text-white/60">en línea</p>
+            <p className="text-sm font-semibold text-white leading-tight">Vistara AI</p>
+            <p className="text-[11px] text-white/60">en linea</p>
           </div>
         </div>
 
@@ -155,11 +221,11 @@ function WhatsAppMockup() {
           <div className="flex justify-start">
             <div className="bg-[#1A2236] rounded-2xl rounded-tl-sm px-4 py-2.5 max-w-[85%] border border-white/[0.04]">
               <p className="text-[13px] text-[#F8FAFC] leading-relaxed">
-                Buenos días, Carlos. Tu ruta de hoy está lista.
+                Buenos dias, Carlos. Tu ruta de hoy esta lista.
               </p>
               <div className="flex items-center justify-end gap-1 mt-1">
                 <span className="text-[10px] text-[#94A3B8]">7:02 AM</span>
-                <span className="text-[10px] text-[#53BDEB]">✓✓</span>
+                <span className="text-[10px] text-[#53BDEB]">{'\u2713\u2713'}</span>
               </div>
             </div>
           </div>
@@ -170,25 +236,28 @@ function WhatsAppMockup() {
               {/* Cyan header area */}
               <div className="px-4 py-2.5" style={{ background: 'rgba(34,211,238,0.08)' }}>
                 <div className="flex items-center gap-2">
-                  <span className="text-[#22D3EE] text-sm">📍</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
                   <p className="text-[13px] font-semibold text-[#22D3EE]">Ruta optimizada — 5 visitas</p>
                 </div>
                 <div className="flex items-center gap-3 mt-1.5 text-[11px] text-[#94A3B8]">
-                  <span>⏱ 47 min en ruta</span>
-                  <span>📊 Score: 94</span>
+                  <span>47 min en ruta</span>
+                  <span>Score: 94</span>
                 </div>
               </div>
               <div className="px-4 py-3">
                 <div className="space-y-1.5 text-[12px] text-[#F8FAFC]/80">
-                  <p>1. Dr. Ricardo Arias — Hosp. Santo Tomás <span className="text-[#22D3EE] font-semibold">(A+)</span></p>
+                  <p>1. Dr. Ricardo Arias — Hosp. Santo Tomas <span className="text-[#22D3EE] font-semibold">(A+)</span></p>
                   <p>2. Dra. Carmen Quintero — Hosp. Nacional <span className="text-[#22D3EE]">(A)</span></p>
                   <p>3. Dr. Manuel Espinosa — C.M. Paitilla <span className="text-[#94A3B8]">(B+)</span></p>
-                  <p>4. Dr. Alejandro Batista — Hosp. Punta Pacífica <span className="text-[#22D3EE]">(A)</span></p>
-                  <p>5. Dra. Rosa Moreno — Clín. San Fernando <span className="text-[#94A3B8]">(B)</span></p>
+                  <p>4. Dr. Alejandro Batista — Hosp. Punta Pacifica <span className="text-[#22D3EE]">(A)</span></p>
+                  <p>5. Dra. Rosa Moreno — Clin. San Fernando <span className="text-[#94A3B8]">(B)</span></p>
                 </div>
                 <div className="flex items-center justify-end gap-1 mt-2">
                   <span className="text-[10px] text-[#94A3B8]">7:02 AM</span>
-                  <span className="text-[10px] text-[#53BDEB]">✓✓</span>
+                  <span className="text-[10px] text-[#53BDEB]">{'\u2713\u2713'}</span>
                 </div>
               </div>
             </div>
@@ -198,11 +267,11 @@ function WhatsAppMockup() {
           <div className="flex justify-start">
             <div className="bg-[#1A2236] rounded-2xl rounded-tl-sm px-4 py-2.5 max-w-[85%] border border-white/[0.04]">
               <p className="text-[13px] text-[#F8FAFC] leading-relaxed">
-                📋 <span className="font-semibold text-[#8B5CF6]">Briefing — Dr. Ricardo Arias:</span> Prescribe Losartán 50mg. Última visita: 14 días. Interesé en nueva presentación pediátrica.
+                <span className="font-semibold text-[#8B5CF6]">Briefing — Dr. Ricardo Arias:</span> Prescribe Losartan 50mg. Ultima visita: 14 dias. Interese en nueva presentacion pediatrica.
               </p>
               <div className="flex items-center justify-end gap-1 mt-1">
                 <span className="text-[10px] text-[#94A3B8]">7:03 AM</span>
-                <span className="text-[10px] text-[#53BDEB]">✓✓</span>
+                <span className="text-[10px] text-[#53BDEB]">{'\u2713\u2713'}</span>
               </div>
             </div>
           </div>
@@ -210,7 +279,7 @@ function WhatsAppMockup() {
           {/* User reply */}
           <div className="flex justify-end">
             <div className="bg-[#005C4B] rounded-2xl rounded-tr-sm px-4 py-2.5 max-w-[75%]">
-              <p className="text-[13px] text-white leading-relaxed">Perfecto, salgo en 10 min 👍</p>
+              <p className="text-[13px] text-white leading-relaxed">Perfecto, salgo en 10 min</p>
               <p className="text-[10px] text-white/50 text-right mt-1">7:05 AM</p>
             </div>
           </div>
@@ -279,7 +348,7 @@ export default function HomePage() {
                     color: '#22D3EE',
                   }}
                 >
-                  Disponible en Panamá
+                  Disponible en Panama
                 </span>
               </div>
 
@@ -317,8 +386,8 @@ export default function HomePage() {
                   maxWidth: '520px',
                 }}
               >
-                Vistara optimiza las rutas de tus visitadores médicos con IA, aumentando visitas de alto valor y
-                reduciendo tiempo en tránsito.
+                Vistara optimiza las rutas de tus visitadores medicos con IA, aumentando visitas de alto valor y
+                reduciendo tiempo en transito.
               </p>
 
               <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -362,7 +431,7 @@ export default function HomePage() {
                     e.currentTarget.style.color = '#F8FAFC'
                   }}
                 >
-                  Ver características
+                  Ver caracteristicas
                 </Link>
               </div>
             </div>
@@ -445,7 +514,7 @@ export default function HomePage() {
                 {stat3.display}
               </p>
               <p className="mt-2 text-base" style={{ fontFamily: 'var(--font-ibm)', fontWeight: 300, color: '#94A3B8' }}>
-                adopción por representantes
+                adopcion por representantes
               </p>
             </div>
           </div>
@@ -471,7 +540,7 @@ export default function HomePage() {
               className="section-tag text-sm tracking-widest uppercase mb-4 justify-center"
               style={{ fontFamily: 'var(--font-ibm)', fontWeight: 500, color: '#22D3EE', fontSize: '13px', letterSpacing: '1.5px' }}
             >
-              Características
+              Caracteristicas
             </p>
             <h2
               style={{
@@ -495,7 +564,7 @@ export default function HomePage() {
               </span>
             </h2>
             <p className="mt-5" style={{ fontFamily: 'var(--font-ibm)', fontWeight: 300, fontSize: '1.05rem', color: '#94A3B8', lineHeight: 1.7 }}>
-              Desde la planificación inteligente de rutas hasta el cumplimiento regulatorio, Vistara cubre cada aspecto de la operación de campo farmacéutica.
+              Desde la planificacion inteligente de rutas hasta el cumplimiento regulatorio, Vistara cubre cada aspecto de la operacion de campo farmaceutica.
             </p>
           </div>
 
@@ -546,7 +615,6 @@ export default function HomePage() {
                     borderRadius: '12px',
                     background: 'rgba(34,211,238,0.08)',
                     border: '1px solid rgba(34,211,238,0.15)',
-                    fontSize: '22px',
                   }}
                 >
                   {feature.icon}
@@ -589,29 +657,45 @@ export default function HomePage() {
             className="text-center uppercase tracking-widest mb-12"
             style={{ fontFamily: 'var(--font-ibm)', fontWeight: 400, fontSize: '12px', color: '#94A3B8', letterSpacing: '2px' }}
           >
-            Empresas que confían en Vistara
+            Empresas que confian en Vistara
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center">
-            {companies.map((name) => (
-              <span
-                key={name}
-                className="transition-colors duration-300 select-none whitespace-nowrap cursor-default"
-                style={{
-                  fontFamily: 'var(--font-syne)',
-                  fontWeight: 700,
-                  fontSize: '1.1rem',
-                  color: 'rgba(255,255,255,0.12)',
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.3)'
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.12)'
-                }}
-              >
-                {name}
-              </span>
-            ))}
+          <div className="relative">
+            {/* Left fade edge */}
+            <div
+              className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
+              style={{
+                background: 'linear-gradient(to right, rgba(17,24,39,0.8), transparent)',
+              }}
+            />
+            {/* Right fade edge */}
+            <div
+              className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none"
+              style={{
+                background: 'linear-gradient(to left, rgba(17,24,39,0.8), transparent)',
+              }}
+            />
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center px-8">
+              {companies.map((name) => (
+                <span
+                  key={name}
+                  className="transition-colors duration-300 select-none whitespace-nowrap cursor-default"
+                  style={{
+                    fontFamily: 'var(--font-syne)',
+                    fontWeight: 700,
+                    fontSize: '1.1rem',
+                    color: 'rgba(255,255,255,0.18)',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.color = 'rgba(255,255,255,0.4)'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.color = 'rgba(255,255,255,0.18)'
+                  }}
+                >
+                  {name}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -654,57 +738,72 @@ export default function HomePage() {
             {testimonials.map((t, i) => (
               <div
                 key={i}
-                className="relative p-8"
+                className="relative p-[1px] transition-all duration-300"
                 style={{
                   borderRadius: '16px',
-                  border: '1px solid rgba(255,255,255,0.06)',
-                  background: 'rgba(17,24,39,0.7)',
-                  backdropFilter: 'blur(12px)',
+                  background: 'rgba(255,255,255,0.06)',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(34,211,238,0.4), rgba(139,92,246,0.4))'
+                  e.currentTarget.style.transform = 'translateY(-2px)'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.06)'
+                  e.currentTarget.style.transform = 'translateY(0)'
                 }}
               >
-                {/* Quote mark */}
                 <div
-                  className="gradient-text leading-none mb-4"
+                  className="relative p-8 h-full"
                   style={{
-                    fontFamily: 'var(--font-syne)',
-                    fontWeight: 800,
-                    fontSize: '3.5rem',
+                    borderRadius: '15px',
+                    background: 'rgba(17,24,39,0.95)',
+                    backdropFilter: 'blur(12px)',
                   }}
                 >
-                  {'\u201C'}
-                </div>
-                <p
-                  className="mb-8"
-                  style={{
-                    fontFamily: 'var(--font-ibm)',
-                    fontWeight: 300,
-                    fontSize: '14px',
-                    color: 'rgba(255,255,255,0.85)',
-                    lineHeight: 1.7,
-                  }}
-                >
-                  {t.quote}
-                </p>
-                <div className="flex items-center gap-3 mt-auto">
+                  {/* Quote mark */}
                   <div
-                    className="flex items-center justify-center text-sm font-bold text-[#0A0E17]"
+                    className="gradient-text leading-none mb-4"
                     style={{
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '50%',
-                      backgroundImage: 'linear-gradient(135deg, #22D3EE, #8B5CF6)',
+                      fontFamily: 'var(--font-syne)',
+                      fontWeight: 800,
+                      fontSize: '3.5rem',
                     }}
                   >
-                    {t.name.charAt(0)}
-                    {t.name.split(' ').pop()?.charAt(0)}
+                    {'\u201C'}
                   </div>
-                  <div>
-                    <p style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '14px', color: '#F8FAFC' }}>
-                      {t.name}
-                    </p>
-                    <p style={{ fontFamily: 'var(--font-ibm)', fontWeight: 300, fontSize: '12px', color: '#94A3B8' }}>
-                      {t.role} · {t.company}
-                    </p>
+                  <p
+                    className="mb-8"
+                    style={{
+                      fontFamily: 'var(--font-ibm)',
+                      fontWeight: 300,
+                      fontSize: '14px',
+                      color: 'rgba(255,255,255,0.85)',
+                      lineHeight: 1.7,
+                    }}
+                  >
+                    {t.quote}
+                  </p>
+                  <div className="flex items-center gap-3 mt-auto">
+                    <div
+                      className="flex items-center justify-center text-sm font-bold text-[#0A0E17]"
+                      style={{
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '50%',
+                        backgroundImage: 'linear-gradient(135deg, #22D3EE, #8B5CF6)',
+                      }}
+                    >
+                      {t.name.charAt(0)}
+                      {t.name.split(' ').pop()?.charAt(0)}
+                    </div>
+                    <div>
+                      <p style={{ fontFamily: 'var(--font-syne)', fontWeight: 700, fontSize: '14px', color: '#F8FAFC' }}>
+                        {t.name}
+                      </p>
+                      <p style={{ fontFamily: 'var(--font-ibm)', fontWeight: 300, fontSize: '12px', color: '#94A3B8' }}>
+                        {t.role} · {t.company}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -753,7 +852,7 @@ export default function HomePage() {
             </span>
           </h2>
           <p className="mt-6 max-w-2xl mx-auto" style={{ fontFamily: 'var(--font-ibm)', fontWeight: 300, fontSize: '1.15rem', color: '#94A3B8', lineHeight: 1.7 }}>
-            Únete a las empresas farmacéuticas en Panamá que ya están maximizando cada día de campo con inteligencia artificial.
+            Unete a las empresas farmaceuticas en Panama que ya estan maximizando cada dia de campo con inteligencia artificial.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <Link
