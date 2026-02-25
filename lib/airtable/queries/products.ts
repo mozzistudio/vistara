@@ -23,11 +23,13 @@ function mapRecord(record: any): Product {
   }
 }
 
+const FIVE_MINUTES = 5 * 60 * 1000
+
 export async function getAllProducts(): Promise<Product[]> {
   return cachedQuery('products:all', async () => {
     const records = await tables.products.select().all()
     return records.map(mapRecord)
-  })
+  }, FIVE_MINUTES)
 }
 
 export async function getProductByName(name: string): Promise<Product | null> {

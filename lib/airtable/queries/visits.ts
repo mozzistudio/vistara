@@ -1,5 +1,5 @@
 import { tables } from '../client'
-import { cachedQuery } from '../cache'
+import { cachedQuery, invalidateCache } from '../cache'
 
 export interface Visit {
   id: string
@@ -114,4 +114,6 @@ export async function updateVisitStatus(visitId: string, status: string, rating?
   if (status === 'Completed') fields['Actual Date'] = new Date().toISOString().split('T')[0]
 
   await tables.visits.update(visitId, fields as any)
+  invalidateCache('visits')
+  invalidateCache('analytics')
 }

@@ -29,11 +29,13 @@ function mapRecord(record: any): User {
   }
 }
 
+const FIVE_MINUTES = 5 * 60 * 1000
+
 export async function getAllUsers(): Promise<User[]> {
   return cachedQuery('users:all', async () => {
     const records = await tables.users.select().all()
     return records.map(mapRecord)
-  })
+  }, FIVE_MINUTES)
 }
 
 export async function getUserByEmail(email: string): Promise<User | null> {
@@ -69,5 +71,5 @@ export async function getRepUsers(): Promise<User[]> {
       })
       .all()
     return records.map(mapRecord)
-  })
+  }, FIVE_MINUTES)
 }

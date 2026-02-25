@@ -1,5 +1,6 @@
 import { tables } from '../client'
 import { cachedQuery } from '../cache'
+import { getAllHCPs } from './hcps'
 
 export interface VisitsByRep {
   rep: string
@@ -22,11 +23,11 @@ export interface ProductDiscussed {
 }
 
 export interface RepLeaderboardEntry {
-  rep: string
+  name: string
   visits: number
   avgRating: number
   routeEfficiency: number
-  coverageAPlus: number
+  coverageA: number
 }
 
 export async function getVisitsByRep(dateFrom?: string, dateTo?: string): Promise<VisitsByRep[]> {
@@ -131,19 +132,33 @@ export async function getRepLeaderboard(dateFrom?: string, dateTo?: string): Pro
     if (dateFrom) conditions.push(`IS_AFTER({Actual Date}, '${dateFrom}')`)
     if (dateTo) conditions.push(`IS_BEFORE({Actual Date}, '${dateTo}')`)
 
-    const visitRecords = await tables.visits
-      .select({ filterByFormula: `AND(${conditions.join(', ')})` })
-      .all()
+    const [visitRecords, routeRecords, allHCPs] = await Promise.all([
+      tables.visits
+        .select({ filterByFormula: `AND(${conditions.join(', ')})` })
+        .all(),
+      tables.routes
+        .select({
+          filterByFormula: (() => {
+            const rc: string[] = []
+            if (dateFrom) rc.push(`IS_AFTER({Date}, '${dateFrom}')`)
+            if (dateTo) rc.push(`IS_BEFORE({Date}, '${dateTo}')`)
+            return rc.length > 0 ? `AND(${rc.join(', ')})` : ''
+          })(),
+        })
+        .all(),
+      getAllHCPs(),
+    ])
 
-    const routeConditions: string[] = []
-    if (dateFrom) routeConditions.push(`IS_AFTER({Date}, '${dateFrom}')`)
-    if (dateTo) routeConditions.push(`IS_BEFORE({Date}, '${dateTo}')`)
-
-    const routeRecords = await tables.routes
-      .select({
-        filterByFormula: routeConditions.length > 0 ? `AND(${routeConditions.join(', ')})` : '',
-      })
-      .all()
+    // Build A+ HCP maps for coverage calculation
+    const hcpSegmentMap: Record<string, string> = {}
+    const repTotalAPlus: Record<string, Set<string>> = {}
+    allHCPs.forEach(hcp => {
+      hcpSegmentMap[hcp.fullName] = hcp.segment
+      if (hcp.segment === 'A+' && hcp.assignedRepName) {
+        if (!repTotalAPlus[hcp.assignedRepName]) repTotalAPlus[hcp.assignedRepName] = new Set()
+        repTotalAPlus[hcp.assignedRepName].add(hcp.fullName)
+      }
+    })
 
     const repData: Record<string, {
       visits: number
@@ -151,34 +166,41 @@ export async function getRepLeaderboard(dateFrom?: string, dateTo?: string): Pro
       ratedVisits: number
       totalScore: number
       routeCount: number
+      visitedAPlus: Set<string>
     }> = {}
 
     visitRecords.forEach((r: any) => {
       const rep = r.get('Rep Name') as string || 'Unknown'
-      if (!repData[rep]) repData[rep] = { visits: 0, totalRating: 0, ratedVisits: 0, totalScore: 0, routeCount: 0 }
+      if (!repData[rep]) repData[rep] = { visits: 0, totalRating: 0, ratedVisits: 0, totalScore: 0, routeCount: 0, visitedAPlus: new Set() }
       repData[rep].visits++
       const rating = r.get('Rating') as number
       if (rating) {
         repData[rep].totalRating += rating
         repData[rep].ratedVisits++
       }
+      const hcpName = r.get('HCP Name') as string || ''
+      if (hcpName && hcpSegmentMap[hcpName] === 'A+') {
+        repData[rep].visitedAPlus.add(hcpName)
+      }
     })
 
     routeRecords.forEach((r: any) => {
       const rep = r.get('Rep Name') as string || 'Unknown'
-      if (!repData[rep]) repData[rep] = { visits: 0, totalRating: 0, ratedVisits: 0, totalScore: 0, routeCount: 0 }
+      if (!repData[rep]) repData[rep] = { visits: 0, totalRating: 0, ratedVisits: 0, totalScore: 0, routeCount: 0, visitedAPlus: new Set() }
       const score = r.get('Optimization Score') as number || 0
       repData[rep].totalScore += score
       repData[rep].routeCount++
     })
 
     return Object.entries(repData)
-      .map(([rep, data]) => ({
-        rep,
+      .map(([name, data]) => ({
+        name,
         visits: data.visits,
         avgRating: data.ratedVisits > 0 ? Math.round((data.totalRating / data.ratedVisits) * 10) / 10 : 0,
         routeEfficiency: data.routeCount > 0 ? Math.round(data.totalScore / data.routeCount) : 0,
-        coverageAPlus: Math.round(Math.random() * 30 + 70), // calculated from HCP data in production
+        coverageA: repTotalAPlus[name]?.size > 0
+          ? Math.round(data.visitedAPlus.size / repTotalAPlus[name].size * 100)
+          : 0,
       }))
       .sort((a, b) => b.visits - a.visits)
   })

@@ -37,7 +37,34 @@ export async function GET(req: NextRequest) {
           getRepLeaderboard(dateFrom, dateTo),
           getOptimizationScoresTrend(dateFrom, dateTo),
         ])
-        return NextResponse.json({ visitsByRep, dailyTrend, ratings, products, leaderboard, optScore })
+
+        const totalVisits = visitsByRep.reduce((sum, v) => sum + v.count, 0)
+        const numReps = visitsByRep.filter(v => v.count > 0).length
+        const numDays = dateFrom && dateTo
+          ? Math.max(1, Math.ceil((new Date(dateTo).getTime() - new Date(dateFrom).getTime()) / (1000 * 60 * 60 * 24)))
+          : 30
+        const avgPerRepDay = numReps > 0
+          ? Math.round((totalVisits / numReps / numDays) * 10) / 10
+          : 0
+        const avgRouteScore = optScore.length > 0
+          ? Math.round(optScore.reduce((sum, s) => sum + s.score, 0) / optScore.length)
+          : 0
+        const avgCoverageA = leaderboard.length > 0
+          ? Math.round(leaderboard.reduce((sum, r) => sum + r.coverageA, 0) / leaderboard.length)
+          : 0
+
+        const kpis = {
+          totalVisits,
+          totalVisitsDelta: 0,
+          avgPerRepDay,
+          avgPerRepDayDelta: 0,
+          coverageA: `${avgCoverageA}%`,
+          coverageADelta: 0,
+          avgRouteScore: `${avgRouteScore}%`,
+          avgRouteScoreDelta: 0,
+        }
+
+        return NextResponse.json({ visitsByRep, dailyTrend, ratings, products, leaderboard, optScore, kpis })
       }
       default:
         return NextResponse.json({ error: 'Invalid type parameter' }, { status: 400 })
