@@ -59,26 +59,7 @@ export default function ChatPanel() {
     }
   }, [messages, isTyping])
 
-  const addBotReply = (text: string, quickReplies?: string[]) => {
-    setIsTyping(true)
-    setTimeout(() => {
-      setIsTyping(false)
-      const now = new Date()
-      const timestamp = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: Date.now().toString(),
-          sender: 'bot',
-          text,
-          timestamp,
-          quickReplies,
-        },
-      ])
-    }, 1200)
-  }
-
-  const handleSend = (text: string) => {
+  const handleSend = async (text: string) => {
     const now = new Date()
     const timestamp = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`
 
@@ -90,29 +71,39 @@ export default function ChatPanel() {
     }
 
     setMessages((prev) => [...prev, userMessage])
+    setIsTyping(true)
 
-    // Simple auto-responses
-    const lower = text.toLowerCase()
-    if (lower.includes('briefing') || lower.includes('si')) {
-      addBotReply(
-        `*Briefing - Dr. Ricardo Arias*\n\nCardiologo | Hospital Santo Tomas\nSegmento: A+ | Frecuencia: Quincenal\n\nUltima visita: hace 12 dias\nProducto principal: CardioMax 10mg\nNotas previas: Interesado en estudios de eficacia comparativa\n\nSugerencia: Llevar estudio CLARITY Phase III\nEstado de animo estimado: Receptivo\n\nQuieres iniciar navegacion?`,
-        ['Navegar', 'Mas detalles', 'Siguiente visita']
-      )
-    } else if (lower.includes('mapa') || lower.includes('navegar')) {
-      addBotReply(
-        'Abriendo navegacion hacia Hospital Santo Tomas...\nTiempo estimado: 12 minutos\nTrafico: Moderado',
-        ['Ruta alternativa', 'OK, voy en camino']
-      )
-    } else if (lower.includes('ajustar') || lower.includes('ruta')) {
-      addBotReply(
-        'Puedo reorganizar tu ruta. Que necesitas?\n\n1. Reordenar por prioridad\n2. Eliminar una visita\n3. Agregar visita de emergencia\n4. Optimizar por trafico actual',
-        ['Reordenar', 'Agregar visita', 'Optimizar trafico']
-      )
-    } else {
-      addBotReply(
-        'Entendido. Puedo ayudarte con:\n\n- Briefings de doctores\n- Navegacion y rutas\n- Ajustes a tu itinerario\n- Informacion de productos\n\nQue necesitas?',
-        ['Briefing siguiente', 'Ver ruta', 'Info producto']
-      )
+    try {
+      const res = await fetch('/api/chat/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text }),
+      })
+      const data = await res.json()
+      setIsTyping(false)
+      if (data && data.text) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: data.id || Date.now().toString(),
+            sender: 'bot' as const,
+            text: data.text,
+            timestamp: data.timestamp || timestamp,
+            quickReplies: data.quickReplies,
+          },
+        ])
+      }
+    } catch {
+      setIsTyping(false)
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Date.now().toString(),
+          sender: 'bot' as const,
+          text: 'No se pudo procesar el mensaje. Intenta de nuevo.',
+          timestamp,
+        },
+      ])
     }
   }
 

@@ -43,11 +43,13 @@ function mapRecord(record: any): HCP {
   }
 }
 
+const TWO_MINUTES = 2 * 60 * 1000
+
 export async function getAllHCPs(): Promise<HCP[]> {
   return cachedQuery('hcps:all', async () => {
     const records = await tables.hcps.select().all()
     return records.map(mapRecord)
-  })
+  }, TWO_MINUTES)
 }
 
 export async function getHCPById(id: string): Promise<HCP | null> {
@@ -67,7 +69,7 @@ export async function getHCPsByRep(repId: string): Promise<HCP[]> {
       })
       .all()
     return records.map(mapRecord)
-  })
+  }, TWO_MINUTES)
 }
 
 export async function searchHCPs(query: string): Promise<HCP[]> {
