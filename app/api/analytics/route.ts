@@ -1,49 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server'
-import {
-  getVisitsByRep,
-  getDailyTrend,
-  getRatingDistribution,
-  getProductsDiscussed,
-  getRepLeaderboard,
-} from '@/lib/airtable/queries/analytics'
-import { getOptimizationScoresTrend } from '@/lib/airtable/queries/routes'
+import { getDashboardKpis, getSalesData } from '@/lib/supabase/queries/sales'
+import { getSellerPerformance } from '@/lib/supabase/queries/sellers'
 
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
-    const type = searchParams.get('type')
-    const dateFrom = searchParams.get('dateFrom') || undefined
-    const dateTo = searchParams.get('dateTo') || undefined
+    const from = searchParams.get('from') ?? '2025-01-01'
+    const to = searchParams.get('to') ?? '2025-06-30'
 
-    switch (type) {
-      case 'visitsByRep':
-        return NextResponse.json(await getVisitsByRep(dateFrom, dateTo))
-      case 'dailyTrend':
-        return NextResponse.json(await getDailyTrend(dateFrom, dateTo))
-      case 'ratings':
-        return NextResponse.json(await getRatingDistribution(dateFrom, dateTo))
-      case 'products':
-        return NextResponse.json(await getProductsDiscussed(dateFrom, dateTo))
-      case 'leaderboard':
-        return NextResponse.json(await getRepLeaderboard(dateFrom, dateTo))
-      case 'optimizationScore':
-        return NextResponse.json(await getOptimizationScoresTrend(dateFrom, dateTo))
-      case 'all': {
-        const [visitsByRep, dailyTrend, ratings, products, leaderboard, optScore] = await Promise.all([
-          getVisitsByRep(dateFrom, dateTo),
-          getDailyTrend(dateFrom, dateTo),
-          getRatingDistribution(dateFrom, dateTo),
-          getProductsDiscussed(dateFrom, dateTo),
-          getRepLeaderboard(dateFrom, dateTo),
-          getOptimizationScoresTrend(dateFrom, dateTo),
-        ])
-        return NextResponse.json({ visitsByRep, dailyTrend, ratings, products, leaderboard, optScore })
-      }
-      default:
-        return NextResponse.json({ error: 'Invalid type parameter' }, { status: 400 })
-    }
-  } catch (error) {
-    console.error('Error fetching analytics:', error)
-    return NextResponse.json({ error: 'Failed to fetch analytics' }, { status: 500 })
+    const [kpis, dailySales, topProducts, topPharmacies, topRegions, sellerPerf] = await Promise.all([
+      getDashboardKpis(from, to),
+      getSalesData({ date_from: from, date_to: to, group_by: 'day', limit: 180 }),
+      getSalesData({ date_from: from, date_to: to, group_by: 'product', order_by: 'revenue_desc', limit: 10 }),
+      getSalesData({ date_from: from, date_to: to, group_by: 'pharmacy', order_by: 'revenue_desc', limit: 10 }),
+      getSalesData({ date_from: from, date_to: to, group_by: 'region', order_by: 'revenue_desc', limit: 10 }),
+      getSellerPerformance(undefined, from, to),
+    ])
+
+    return NextResponse.json({
+      data: { kpis, dailySales, topProducts, topPharmacies, topRegions, sellerPerf }
+    })
+  } catch (e) {
+    return NextResponse.json({ error: String(e) }, { status: 500 })
   }
 }

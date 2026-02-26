@@ -1,52 +1,34 @@
 import type { Metadata } from 'next'
-import { Syne, IBM_Plex_Sans } from 'next/font/google'
+import { Bricolage_Grotesque, DM_Sans, IBM_Plex_Mono } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
 
-const syne = Syne({
+const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
-  variable: '--font-syne',
-  weight: ['700', '800'],
-  display: 'swap',
+  variable: '--font-bricolage',
+  weight: ['300', '400', '500', '600', '700', '800'],
 })
 
-const ibmPlex = IBM_Plex_Sans({
+const dmSans = DM_Sans({
   subsets: ['latin'],
-  variable: '--font-ibm',
-  weight: ['300', '400', '500'],
-  display: 'swap',
+  variable: '--font-dm-sans',
+  weight: ['300', '400', '500', '600', '700'],
+})
+
+const ibmMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  variable: '--font-ibm-mono',
+  weight: ['400', '500', '600'],
 })
 
 export const metadata: Metadata = {
-  title: {
-    default: 'Vistara — Inteligencia de Rutas para Pharma',
-    template: '%s | Vistara',
-  },
-  description: 'Optimización de rutas con IA para equipos comerciales farmacéuticos en Panamá. Más visitas, menos tiempo en ruta, mejor cobertura.',
-  metadataBase: new URL('https://vistara-rho.vercel.app'),
-  openGraph: {
-    type: 'website',
-    locale: 'es_PA',
-    url: 'https://vistara-rho.vercel.app',
-    siteName: 'Vistara',
-    title: 'Vistara — Inteligencia de Rutas para Pharma',
-    description: 'Optimización de rutas con IA para equipos comerciales farmacéuticos en Panamá.',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Vistara — Inteligencia de Rutas para Pharma',
-    description: 'Optimización de rutas con IA para equipos comerciales farmacéuticos en Panamá.',
-  },
-  robots: { index: true, follow: true },
-  alternates: {
-    canonical: 'https://vistara-rho.vercel.app',
-    languages: { 'es': 'https://vistara-rho.vercel.app', 'en': 'https://vistara-rho.vercel.app/en' },
-  },
+  title: 'Vistara — Pharma Intelligence',
+  description: 'Plataforma de inteligencia farmacéutica para equipos de ventas',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${syne.variable} ${ibmPlex.variable}`}>
+    <html lang="es" className={`${bricolage.variable} ${dmSans.variable} ${ibmMono.variable}`}>
       <body>
         <Providers>{children}</Providers>
       </body>
