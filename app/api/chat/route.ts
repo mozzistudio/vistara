@@ -13,17 +13,23 @@ const MAX_TOOL_ROUNDS = 5
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await getServerSession(authOptions)
-    if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
-
-    const { message, conversationId: existingConvId, channel, context } = await req.json() as {
+    const body = await req.json() as {
       message: string
       conversationId?: string
       channel?: MsgChannel
       context?: Record<string, unknown>
     }
+
+    // Auth: try server session first, fall back to userId from request body
+    const session = await getServerSession(authOptions)
+    const sessionUserId = (session?.user as Record<string, unknown> | undefined)?.id as string | undefined
+    const userId = sessionUserId ?? (body.context?.userId as string | undefined) ?? 'anonymous'
+
+    if (!session?.user && !body.context?.userId) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const { message, conversationId: existingConvId, channel, context } = body
 
     if (!message?.trim()) {
       return NextResponse.json({ error: 'Message required' }, { status: 400 })
@@ -34,7 +40,7 @@ export async function POST(req: NextRequest) {
 
     // Get or create conversation
     const convId = existingConvId
-      ?? await getOrCreateConversation(session.user.id, ch, context)
+      ?? await getOrCreateConversation(userId, ch, context)
 
     // Load history
     const history = await getConversationMessages(convId, 20)
