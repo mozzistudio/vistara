@@ -147,7 +147,7 @@ export default function LoginPage() {
             style={{ borderColor: 'rgba(255,255,255,0.06)' }}
           >
             <p className="text-[11px] font-mono" style={{ color: '#4A6B5A' }}>
-              Demo: vendedor@vistara.com · demo2026
+              Demo: carlos.rep@vistara-demo.com · demo2026
             </p>
           </div>
         </div>
