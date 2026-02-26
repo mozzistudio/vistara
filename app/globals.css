@@ -1,96 +1,70 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --color-bg: #0A0E17;
-  --color-surface: #111827;
-  --color-surface-2: #1A2236;
-  --color-cyan: #22D3EE;
-  --color-violet: #8B5CF6;
-  --color-success: #34D399;
-  --color-warning: #FB923C;
-  --color-error: #EF4444;
-  --color-emerald: #34D399;
-  --color-amber: #FBBF24;
-  --color-rose: #F43F5E;
-  --color-text: #F8FAFC;
-  --color-text-muted: #94A3B8;
-  --color-border: rgba(255, 255, 255, 0.06);
+@import 'leaflet/dist/leaflet.css';
 
-  --font-syne: 'Syne', sans-serif;
-  --font-ibm: 'IBM Plex Sans', sans-serif;
+:root {
+  --forest: #2D7A4F;
+  --forest-dark: #1E5C3A;
+  --forest-light: #3A9462;
+  --deep: #0D2818;
+  --deep-mid: #132F1E;
+  --mint-paper: #F4F9F4;
+  --mint-light: #E8F3E8;
+  --mint-bg: #EEF5EE;
+  --neon-mint: #6EE7A0;
+  --neon-mint-dim: rgba(110, 231, 160, 0.12);
+  --leaf: #A3D9B5;
+  --text-dark: #0D2818;
+  --text-mid: #1B2E1B;
+  --text-muted: #4A6B4A;
+  --text-light: #5A7A5A;
+  --text-faint: #6B8A6B;
+  --border: #D4E8D4;
+  --border-light: #E0EDE0;
+  --success: #16A34A;
+  --alert: #EF4444;
+  --warning: #F59E0B;
+  --wa-green: #25D366;
 }
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
 html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: var(--font-ibm);
-  background-color: var(--color-bg);
-  color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-syne);
+body {
+  background-color: var(--mint-paper);
+  color: var(--text-mid);
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.6;
 }
 
-/* Selection */
-::selection {
-  background: rgba(34, 211, 238, 0.2);
-  color: #F8FAFC;
-}
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--leaf); }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-bg);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-surface-2);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-muted);
-}
-
-/* Glassmorphism utility */
-.glass {
-  background: rgba(10, 14, 23, 0.7);
-  backdrop-filter: blur(20px) saturate(1.4);
-  -webkit-backdrop-filter: blur(20px) saturate(1.4);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-/* Ambient glow */
-.glow-cyan {
-  box-shadow: 0 0 20px rgba(34, 211, 238, 0.15), 0 0 60px rgba(34, 211, 238, 0.05);
-}
-.glow-violet {
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.15), 0 0 60px rgba(139, 92, 246, 0.05);
-}
-
-/* Pulse animation for map markers */
-@keyframes pulse-ring {
-  0% { transform: scale(0.8); opacity: 1; }
-  100% { transform: scale(2); opacity: 0; }
-}
-.pulse-marker::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: inherit;
-  animation: pulse-ring 2s ease-out infinite;
+@layer components {
+  /* Stock badges */
+  .badge-alto {
+    @apply bg-green-100 text-green-700 text-[11px] font-semibold px-2.5 py-0.5 rounded-full;
+  }
+  .badge-medio {
+    @apply bg-yellow-100 text-yellow-700 text-[11px] font-semibold px-2.5 py-0.5 rounded-full;
+  }
+  .badge-bajo {
+    @apply bg-red-100 text-red-600 text-[11px] font-semibold px-2.5 py-0.5 rounded-full;
+  }
+  .badge-ruptura {
+    @apply bg-red-600 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full;
+  }
 }
 
 /* Floating animation for WhatsApp mockup */

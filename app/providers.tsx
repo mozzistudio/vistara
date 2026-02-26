@@ -7,10 +7,7 @@ import { useState } from 'react'
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient({
     defaultOptions: {
-      queries: {
-        staleTime: 30 * 1000,
-        refetchOnWindowFocus: false,
-      },
+      queries: { staleTime: 60 * 1000, retry: 1 },
     },
   }))
 
