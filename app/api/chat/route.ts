@@ -9,6 +9,8 @@ import { getOrCreateConversation, getConversationMessages, appendMessage } from 
 import type { MsgChannel } from '@/types'
 import type Anthropic from '@anthropic-ai/sdk'
 
+export const maxDuration = 60
+
 const MAX_TOOL_ROUNDS = 5
 
 export async function POST(req: NextRequest) {
