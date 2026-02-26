@@ -22,7 +22,7 @@ function makeSellerFromUser(u: Record<string, unknown>, idx: number) {
     hire_date: '2022-01-01',
     status: 'ACTIVE',
     user: { id: u.id as string, name: u.name as string, email: u.email as string, avatar: null },
-    seller_pharmacies: [],
+    seller_pharmacies: [] as { pharmacy: { id: string; name: string; region: string; type: string; tier: string; address: string } }[],
     // Performance aggregates
     seller_name: u.name as string,
     actual_revenue: actual,
